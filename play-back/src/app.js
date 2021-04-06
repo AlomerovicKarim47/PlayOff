@@ -4,8 +4,8 @@ import loaders from './loaders'
 
 const startServer = async () => {
     const app = express()
-    loaders.loadExpress(app)
     await loaders.loadSequelize()
+    loaders.loadExpress(app)
     app.listen(config.PORT)
     console.log(`Play-back running on port ${config.PORT}.`)
 }

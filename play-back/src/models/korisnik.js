@@ -12,6 +12,11 @@ export default (sequelize) => {
             unique: false,
             allowNull: false
         },
+        email:{
+            type: Sequelize.STRING,
+            unique:true,
+            allowNull:false
+        },
         ime:{
             type: Sequelize.STRING,
             unique: false,

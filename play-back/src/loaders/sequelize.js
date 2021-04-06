@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize'
 import config from '../config'
 import models from '../models'
+import {postaviBazu} from '../data'
 
 const loadSequelize = async() => {
     const connection = new Sequelize(`postgres://${config.db.USER}:${config.db.PASS}@${config.db.HOST}:${config.db.PORT}/template1`, {logging:false})
@@ -31,11 +32,10 @@ const loadSequelize = async() => {
         await sequelize.authenticate()
         await sequelize.sync()
         console.log('Connected to database.')
-        return db
+        postaviBazu(db)
     } catch (error) {
         console.log('Unable to connect to database.', error)
     }
-    return null
 }
 
 export default loadSequelize
