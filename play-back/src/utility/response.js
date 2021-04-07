@@ -1,4 +1,4 @@
-const response = async (req, res, next) => {
+const sendResponse = async (req, res) => {
     const response = {
         path: req.url,
         code: res.statusCode,
@@ -8,4 +8,4 @@ const response = async (req, res, next) => {
     res.end(JSON.stringify(response))
 }
 
-export default response
+export default sendResponse

@@ -1,5 +1,6 @@
 const config = {
     PORT: 8000,
+    JWT_SECRET_KEY: "bigSecretKee14",
     db:{
         NAME: "playoff",
         PORT: 5432,
