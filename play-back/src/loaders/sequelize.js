@@ -5,7 +5,7 @@ import {postaviBazu} from '../data'
 
 const loadSequelize = async() => {
     const connection = new Sequelize(`postgres://${config.db.USER}:${config.db.PASS}@${config.db.HOST}:${config.db.PORT}/template1`, {logging:false})
-    const sequelize = new Sequelize(`postgres://${config.db.USER}:${config.db.PASS}@${config.db.HOST}:${config.db.PORT}/playoff`, {logging: false})
+    const sequelize = new Sequelize(`postgres://${config.db.USER}:${config.db.PASS}@${config.db.HOST}:${config.db.PORT}/${config.db.NAME}`, {logging: false})
     try {    
         try{   
             await connection.query(`CREATE DATABASE ${config.db.NAME} WITH OWNER = ${config.db.USER} ENCODING = 'UTF8'`)

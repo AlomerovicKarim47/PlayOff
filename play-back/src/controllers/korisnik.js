@@ -12,11 +12,11 @@ const registracija = async (req, res, next) => {
         if (error.name == "SequelizeUniqueConstraintError" && error.errors.length > 0){
             res.statusCode = 409
             let razlog = error.errors[0].path
-            res.message = `Unešeni ${razlog} već postoji.`
+            res.message = `Unešeno polje ${razlog} već postoji.`
         }
         else{
             res.statusCode = 500
-            res.message = "Greška u bazi: "+ error.message
+            res.message = "Greška u serveru: "+ error.message
         }
     }
     sendResponse(req, res)
@@ -40,7 +40,7 @@ const login = async (req, res, next) => {
         }
     } catch (error) {
         res.statusCode = 500
-        res.message = "Greška u bazi: "+ error.message
+        res.message = "Greška u serveru: "+ error.message
     }
     sendResponse(req, res)
 }
@@ -59,7 +59,7 @@ const traziPoId = async (req, res, next) => {
         res.data = korisnik
     } catch (error) {
         res.statusCode = 500
-        res.message = "Greška u bazi: "+ error.message
+        res.message = "Greška u serveru: "+ error.message
     }
     sendResponse(req, res)
 }
@@ -79,7 +79,7 @@ const izmjeni = async (req, res, next) => {
         res.data = noviKorisnik
     } catch (error) {
         res.statusCode = 500
-        res.message = "Greška u bazi: "+ error.message
+        res.message = "Greška u serveru: "+ error.message
     }
     sendResponse(req, res)
 }
