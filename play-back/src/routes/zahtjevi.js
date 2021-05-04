@@ -3,11 +3,11 @@ import {ZahtjeviCtrl} from '../controllers'
 
 const zahtjeviRoutes = Router()
 
-zahtjeviRoutes.post("/zahtjevi/tim", ZahtjeviCtrl.PosaljiZahtjevTim)
+zahtjeviRoutes.post("/zahtjevi/tim", ZahtjeviCtrl.posaljiZahtjevTim)
 
-zahtjeviRoutes.post("/zahtjevi/mec", ZahtjeviCtrl.PosaljiZahtjevMec)
+zahtjeviRoutes.post("/zahtjevi/mec", ZahtjeviCtrl.posaljiZahtjevMec)
 
-zahtjeviRoutes.get("/zahtjevi/tim/:timID", ZahtjeviCtrl.dobaviZahtjeveZaTim)
+zahtjeviRoutes.get("/zahtjevi/tim/:timID", ZahtjeviCtrl.dobaviZahtjevTim)
 
 zahtjeviRoutes.get("/zahtjevi/mec/:timID", ZahtjeviCtrl.dobaviZahtjevMec)
 

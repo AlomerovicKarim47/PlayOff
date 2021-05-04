@@ -5,7 +5,7 @@ const pozicijeRoutes = Router()
 
 pozicijeRoutes.get("/pozicija/preferirane/:korisnikID", PozicijeCtrl.dobaviPozicije)
 
-pozicijeRoutes.post("/pozicija/postaviKorisnika", PorukeCtrl.postaviPozicije)
+pozicijeRoutes.post("/pozicija/postaviKorisnika", PozicijeCtrl.postaviPozicije)
 
 
 export default pozicijeRoutes

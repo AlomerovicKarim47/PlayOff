@@ -42,8 +42,8 @@ const posaljiZahtjevMec = async (req, res, next) => {
 const posaljiZahtjevMecBezTimova = async (req, res, next) => {
     let data = req.body
 	let zahtjev = {
-		korisnik: data.korisnikID
-		vidjenost: false
+		korisnik: data.korisnikID,
+		vidjenost: false,
 		vrijemeOdrzavanja: data.vrijeme,
 		mjesto: data.mjesto,
 		status: false
