@@ -7,7 +7,7 @@ class ZahtjeviData{
         baza = db
     }
 	
-	static async PosaljiZahtjevTim(zahtjev){
+	static async posaljiZahtjevTim(zahtjev){
         try {
             await baza.ZahtjevTim.create(zahtjev)
         } catch (error) {
@@ -15,7 +15,7 @@ class ZahtjeviData{
         }
 	}
 	
-	static async PosaljiZahtjevMec(zahtjev){
+	static async posaljiZahtjevMec(zahtjev){
         try {
             await baza.ZahtjevMec.create(zahtjev)
         } catch (error) {
@@ -34,6 +34,7 @@ class ZahtjeviData{
 	static async dobaviZahtjeveZaTim(timID) {
         try {
             let zahtjevi = await baza.ZahtjevTim.findAll({ where: { tim: timID } })
+			if(zahtjevi.length == 0) return null
             return zahtjevi
         } catch (error) {
             throw error
@@ -43,6 +44,7 @@ class ZahtjeviData{
 	static async dobaviZahtjeveZaMec(timID) {
         try {
             let zahtjevi = await baza.ZahtjevMec.findAll({ where: { timPrimaoc: timID } })
+			if(zahtjevi.length == 0) return null
             return zahtjevi
         } catch (error) {
             throw error

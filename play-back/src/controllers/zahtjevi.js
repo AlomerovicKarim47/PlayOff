@@ -5,9 +5,9 @@ const posaljiZahtjevTim = async (req, res, next) => {
     let data = req.body
 	let zahtjev = {
         sadrzaj: data.sadrzaj,
-        posiljaoc: data.posiljaocUsername,
-        primaoc: data.primaocUsername,
-        vidjenost: false,
+		vidjenost: false,
+        posiljaoc: data.posiljaocID,
+        primaoc: data.primaocID,
 		tim: data.timID
     }
     try {
@@ -62,7 +62,7 @@ const dobaviZahtjevTim = async (req, res, next) => {
 	
     try {
         let data = await ZahtjeviData.dobaviZahtjeveZaTim(req.params.timID)
-        if(!data) res.statusCode = 404	
+        if(!data) res.statusCode = 404, res.message = "Zahtjev nije pronađen"	
 		else{
 			res.data = data
 			res.statusCode = 200
@@ -78,7 +78,7 @@ const dobaviZahtjevMec = async (req, res, next) => {
 	
     try {
         let data = await ZahtjeviData.dobaviZahtjeveZaMec(req.params.timID)
-        if(!data) res.statusCode = 404	
+        if(!data) res.statusCode = 404, res.message = "Zahtjev nije pronađen"	
 		else{
 			res.data = data
 			res.statusCode = 200
