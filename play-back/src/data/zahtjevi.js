@@ -22,7 +22,7 @@ class ZahtjeviData{
             throw error
         }
 	}
-	
+	/*
 	static async PosaljiZahtjevMecBezTimova(zahtjev){
         try {
             await baza.ZahtjevMecBezTimova.create(zahtjev)
@@ -30,7 +30,7 @@ class ZahtjeviData{
             throw error
         }
 	}
-	
+	*/
 	static async dobaviZahtjeveZaTim(timID) {
         try {
             let zahtjevi = await baza.ZahtjevTim.findAll({ where: { tim: timID } })
