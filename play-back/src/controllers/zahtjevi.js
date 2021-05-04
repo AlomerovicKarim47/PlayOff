@@ -7,7 +7,7 @@ const posaljiZahtjevTim = async (req, res, next) => {
         sadrzaj: data.sadrzaj,
         posiljaoc: data.posiljaocUsername,
         primaoc: data.primaocUsername,
-        vidjenost: false
+        vidjenost: false,
 		tim: data.timID
     }
     try {
@@ -82,7 +82,7 @@ const dobaviZahtjevMec = async (req, res, next) => {
 		else{
 			res.data = data
 			res.statusCode = 200
-		}200
+		}
     } catch (error) {
         res.statusCode = 500
         res.message = "Greška u serveru: " + error.message
