@@ -25,7 +25,6 @@ class MeceviData {
         }
     }
 
-    // DONE
     static async dobaviMecTim(timID) {
         try {
             let mecevi = []
@@ -38,16 +37,15 @@ class MeceviData {
         }
     }
 
-    // DONE
     static async dodajMec(mec) {
         try {
+            //console.log(mec)
             await baza.Mec.create(mec)
         } catch (error) {
             throw error
         }
     }
 
-    // DOVRSITI NAKON IMPLEMENTACIJE PORUKA
     static async zavrsiMec(mecID, rezultat) {
         try {
             let mec = await baza.Mec.findOne({ where: { id: mecID } })
@@ -67,9 +65,9 @@ class MeceviData {
         }
     }
 
-    // DONE
     static async dodajTermin(termin) {
         try {
+            //console.log(termin)
             let x = await baza.MecBezTimova.create(termin)
             return x
         } catch (error) {
@@ -77,7 +75,6 @@ class MeceviData {
         }
     }
 
-    // DONE
     static async dobaviTermine(korisnikID) {
         try {
             let spisak = await baza.UcesniciUMecuBezTimova.findAll({ where: { korisnik: korisnikID } })
@@ -93,13 +90,12 @@ class MeceviData {
         }
     }
 
-    // DONE
-    static async zavrsiTermin(mecID) {
+    static async zavrsiTermin(mecID, rezultat) {
         try {
             let mec = await baza.MecBezTimova.findOne({ where: { id: mecID } })
 
             if (rezultat.otkazan == 0) {
-                // Meč je uspješno završen
+                // Termin je uspješno završen
                 mec.rezTim1 = rezultat.rezTim1
                 mec.rezTim2 = rezultat.rezTim2
                 mec.zavrsen = true
@@ -112,16 +108,15 @@ class MeceviData {
         }
     }
 
-    // DONE
     static async dodajKorisnikaTermin(unos) {
         try {
+            //console.log(unos)
             await baza.UcesniciUMecuBezTimova.create(unos)
         } catch (error) {
             throw error
         }
     }
 
-    // DONE
     static async izbaciKorisnikaTermin(data) {
         try {
             let obrisano = await baza.UcesniciUMecuBezTimova.destroy({ where: { korisnik: data.korisnikID, mec: data.mecID } })
