@@ -25,7 +25,7 @@ const loadSequelize = async() => {
         db.TimPozicije = models.TimPozicije(sequelize)
         db.ZahtjevMecBezTimova = models.ZahtjevMecBezTimova(sequelize)
         db.UcesniciUMecuBezTimova = models.UcesniciUMecuBezTimova(sequelize)
-        db.ZahtjecMec = models.ZahtjevMec(sequelize)
+        db.ZahtjevMec = models.ZahtjevMec(sequelize)
         db.Mec = models.Mec(sequelize)
         db.MecBezTimova = models.MecBezTimova(sequelize)
 

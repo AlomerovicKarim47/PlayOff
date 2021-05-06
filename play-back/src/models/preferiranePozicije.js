@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
 
 export default (sequelize) => {
-    sequelize.define('PreferiranePozicije',{
+    return sequelize.define('PreferiranePozicije',{
         sport:{
             type: Sequelize.INTEGER,
             unique:false,

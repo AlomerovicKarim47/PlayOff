@@ -24,14 +24,17 @@ const posaljiZahtjevMec = async (req, res, next) => {
     let data = req.body
 	let zahtjev = {
         sadrzaj: data.sadrzaj,
-        posiljaoc: data.posiljaocID,
-        primaoc: data.primaocID,
-		vrijeme: data.vrijeme,
-		mjesto: data.mjesto
+        timPosiljaoc: data.posiljaocID,
+        timPrimaoc: data.primaocID,
+		vidjenost: false,
+		vrijemeOdrzavanja: data.vrijeme,
+		mjesto: data.mjesto,
+		status: false
     }
     try {
         await ZahtjeviData.posaljiZahtjevMec(zahtjev)
         res.statusCode = 200
+		
     } catch (error) {
         res.statusCode = 500
         res.message = "Greška u serveru: " + error.message

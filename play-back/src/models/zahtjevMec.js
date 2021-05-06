@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
 
 export default (sequelize)=>{
-    return sequelize.define('ZahtjevMec', {
+    return sequelize.define("ZahtjevMec", {
         sadrzaj:{
             type:Sequelize.STRING,
             unique:false,

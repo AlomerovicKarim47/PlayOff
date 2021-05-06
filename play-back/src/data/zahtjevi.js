@@ -9,6 +9,7 @@ class ZahtjeviData{
 	
 	static async posaljiZahtjevTim(zahtjev){
         try {
+
             await baza.ZahtjevTim.create(zahtjev)
         } catch (error) {
             throw error

@@ -3,8 +3,8 @@ import {PorukeCtrl} from '../controllers'
 
 const porukeRoutes = Router()
 
-porukeRoutes.post("/poruka/posalji", PorukeCtrl.Posalji)
+porukeRoutes.post("/poruke/posalji", PorukeCtrl.Posalji)
 
-porukeRoutes.get("/poruka/:korisnikID", PorukeCtrl.Dobavi)
+porukeRoutes.get("/poruke/:korisnikID", PorukeCtrl.Dobavi)
 
 export default porukeRoutes
