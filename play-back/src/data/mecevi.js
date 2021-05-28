@@ -69,7 +69,7 @@ class MeceviData {
         try {
             //console.log(termin)
             let x = await baza.MecBezTimova.create(termin)
-            return x
+            return x.dataValues
         } catch (error) {
             throw error
         }
@@ -121,6 +121,15 @@ class MeceviData {
         try {
             let obrisano = await baza.UcesniciUMecuBezTimova.destroy({ where: { korisnik: data.korisnikID, mec: data.mecID } })
             return obrisano
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async dobaviOrganizovaneTermine(korisnik){
+        try {
+            let rez = await baza.MecBezTimova.findAll({where:{organizator:korisnik}})
+            return rez.map(r=>r.dataValues)
         } catch (error) {
             throw error
         }

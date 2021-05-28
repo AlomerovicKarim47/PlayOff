@@ -2,7 +2,13 @@ import Sequelize from 'sequelize'
 
 export default (sequelize)=>{
     return sequelize.define('ZahtjevMecBezTimova',{
-        korisnik:{
+        primaoc:{
+            type:Sequelize.INTEGER,
+            unique:false,
+            allowNull:false,
+            foreignKey:true
+        },
+        posiljaoc:{
             type:Sequelize.INTEGER,
             unique:false,
             allowNull:false
@@ -26,6 +32,16 @@ export default (sequelize)=>{
             type:Sequelize.BOOLEAN,
             unique:false,
             allowNull:true
+        },
+        sport:{
+            type:Sequelize.INTEGER,
+            unique:false,
+            allowNull:false
+        },
+        mec:{
+            type:Sequelize.INTEGER,
+            unique:false,
+            allowNull:false
         }
     })
 }

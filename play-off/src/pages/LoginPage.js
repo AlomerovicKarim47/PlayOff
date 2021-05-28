@@ -20,12 +20,12 @@ class LoginPage extends Component {
             if (res.code === 200) {
                 UserStore.token = res.data.token
                 UserStore.user = res.data.korisnik
-                this.props.history.push("/home")
+                this.props.history.push("/home/organizacija/organizuj")
             } else {
                 this.setState({ invalid: true })
             }
         } catch (error) {
-            if (error.name == "ValidationError") {
+            if (error.name === "ValidationError") {
                 let errors = {}
                 error.inner.map(i => errors[i.path + "Error"] = i.message)
                 this.setState({ ...this.state, ...errors })
@@ -46,17 +46,17 @@ class LoginPage extends Component {
     render() {
         return (
             <div className="container-fullwidth  vertical-center">
-                <div className="card mx-auto" style={{ width: "20rem" }}>
+                <div className="card mx-auto bg-light" style={{ width: "20rem" }}>
                     <input type="text" className="form-control" placeholder="Korisničko ime" onChange={(e) => this.changeAttribute("username", e.target.value)} />
                     <div className="validation-msg">{this.state.usernameError}</div>
 
                     <input type="password" className="form-control" placeholder="Lozinka" onChange={(e) => this.changeAttribute("password", e.target.value)} />
                     <div className="validation-msg">{this.state.passwordError}</div>
 
-                    <button className="btn btn-primary" onClick={() => this.login()}>Log in</button>
+                    <button className="btn btn-success" onClick={() => this.login()}>Log in</button>
                     <div className="validation-msg">{this.state.invalid ? "Neispravni login podaci." : ""}</div>
 
-                    <button className="btn btn-primary" onClick={() => this.register()}>Registracija</button>
+                    <button className="btn btn-success" onClick={() => this.register()}>Registracija</button>
                 </div>
             </div>
         )

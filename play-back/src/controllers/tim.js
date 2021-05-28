@@ -4,7 +4,8 @@ import {TimData} from '../data'
 const dodaj = async (req, res, next) => {
     let tim = {...req.body, dostupnost:false, ELO: 0}
     try {
-        await TimData.dodaj(tim)
+        let rez = await TimData.dodaj(tim)
+        res.data = JSON.stringify(rez)
     } catch (error) {
         if (error.name == "SequelizeUniqueConstraintError" && error.errors.length > 0){
             res.statusCode = 409
@@ -101,6 +102,35 @@ const clanovi = async (req, res, next) => {
     sendResponse(req, res)
 }
 
+const dobaviOsnovane = async (req, res, next) => {
+    let korisnikID = req.params.korisnikID
+    let term = req.query.term
+    let sport = req.query.sport
+    try {
+        let timovi = await TimData.dobaviOsnovane(korisnikID, term?term:"", sport?sport:null)
+        res.data = timovi
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
+const dobavi = async (req, res, next) => {
+    let kapitenZaIzbaciti=req.query.kapitenZaIzbaciti
+    let term = req.query.term
+    let sport = req.query.sport
+    try {
+        let timovi = await TimData.dobavi(term?term:"", sport?sport:null, 
+                                kapitenZaIzbaciti?kapitenZaIzbaciti:null)
+        res.data = timovi
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
 const TimCtrl = {
     dodaj,
     izmjeni,
@@ -108,7 +138,9 @@ const TimCtrl = {
     izbaciIgraca,
     dobaviProsle,
     dodajProsli,
-    clanovi
+    clanovi,
+    dobaviOsnovane,
+    dobavi
 }
 
 export default TimCtrl

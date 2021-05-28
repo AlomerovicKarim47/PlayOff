@@ -2,7 +2,7 @@ import { observable } from 'mobx'
 
 let UserStore = observable({
     token:null,
-    user:""
+    user:null
 })
 
 export default UserStore

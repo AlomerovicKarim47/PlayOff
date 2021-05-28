@@ -17,4 +17,8 @@ timRoutes.post("/tim/prosli", TimCtrl.dodajProsli)
 
 timRoutes.get("/tim/clanovi/:timID", TimCtrl.clanovi)
 
+timRoutes.get("/tim/osnovani/:korisnikID", TimCtrl.dobaviOsnovane)
+
+timRoutes.get("/tim", TimCtrl.dobavi)
+
 export default timRoutes

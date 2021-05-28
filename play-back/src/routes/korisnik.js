@@ -11,4 +11,6 @@ korisnikRoutes.get('/korisnik/:korisnikID', KorisnikCtrl.traziPoId)
 
 korisnikRoutes.patch('/korisnik/:korisnikID', KorisnikCtrl.izmjeni)
 
+korisnikRoutes.get('/korisnik/username/:username', KorisnikCtrl.traziPoUsername)
+
 export default korisnikRoutes

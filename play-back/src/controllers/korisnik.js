@@ -84,11 +84,25 @@ const izmjeni = async (req, res, next) => {
     sendResponse(req, res)
 }
 
+const traziPoUsername = async (req, res, next) => {
+    let username = req.params.username
+    let cijelo = req.query.cijelo==="da"?true:false
+    try {
+        let korisnici = await KorisnikData.traziPoUsername(username, cijelo)
+        res.data = JSON.stringify(korisnici)
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: "+ error.message
+    }
+    sendResponse(req, res)
+}
+
 const KorisnikCtrl = {
     registracija,
     login,
     traziPoId,
-    izmjeni
+    izmjeni,
+    traziPoUsername
 }
 
 export default KorisnikCtrl

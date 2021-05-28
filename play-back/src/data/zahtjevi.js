@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize'
+import Sequelize, { BelongsTo } from 'sequelize'
 const Op = Sequelize.Op
 let baza = null
 
@@ -23,19 +23,21 @@ class ZahtjeviData{
             throw error
         }
 	}
-	/*
-	static async PosaljiZahtjevMecBezTimova(zahtjev){
+	
+	static async posaljiZahtjevMecBezTimova(zahtjev){
         try {
             await baza.ZahtjevMecBezTimova.create(zahtjev)
         } catch (error) {
             throw error
         }
 	}
-	*/
+	
 	static async dobaviZahtjeveZaTim(timID) {
         try {
-            let zahtjevi = await baza.ZahtjevTim.findAll({ where: { tim: timID } })
-			if(zahtjevi.length == 0) return null
+            let zahtjevi = await baza.ZahtjevTim.findAll(
+                { where: { tim: timID },
+                    include: baza.Korisnik }
+            )
             return zahtjevi
         } catch (error) {
             throw error
@@ -45,21 +47,59 @@ class ZahtjeviData{
 	static async dobaviZahtjeveZaMec(timID) {
         try {
             let zahtjevi = await baza.ZahtjevMec.findAll({ where: { timPrimaoc: timID } })
-			if(zahtjevi.length == 0) return null
             return zahtjevi
         } catch (error) {
             throw error
         }
     }
-	/* nema nacina za pretragu kome se šalje zahtjev 
-	static async dobaviZahtjeveZaMecBezTimova(korisnikID) {
+
+	static async dobaviZahtjeveZaMecBezTimova(korisnikID, mec) {
         try {
-            let zahtjevi = await baza.zahtjevMecBezTimova.findAll({ where: { timPrimaoc: timID } })
-            return zahtjevi
+            let rez = await baza.ZahtjevMecBezTimova.findAll(
+                {
+                    where: korisnikID?{primaoc:korisnikID}:{mec:mec},
+                    include:baza.Korisnik,
+                    order: [['id', 'desc']]     
+                }  
+                )
+            return rez.map(r => r.dataValues)
         } catch (error) {
             throw error
         }
-    }*/
+    }
+
+    static async azurirajZahtjevZaMecBezTimova(id, data){
+        try {
+            let zahtjev = await baza.ZahtjevMecBezTimova.findOne({where:{id}})
+            Object.keys(data).map(p => zahtjev[p] = data[p])
+            await zahtjev.save()
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async dobaviKorisnikoveZahtjeveZaTim(korisnik){
+        try {
+            let rez = await baza.ZahtjevTim.findAll({
+                where:{primaoc: korisnik},
+                include:baza.Tim,
+                order: [['id', 'desc']] 
+            })
+            return rez.map(r=>r.dataValues)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async azurirajZahtjevZaTim(id, data){
+        try {
+            let zahtjev = await baza.ZahtjevTim.findOne({where:{id}})
+            Object.keys(data).map(p=>zahtjev[p] = data[p])
+            await zahtjev.save()
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 export default ZahtjeviData

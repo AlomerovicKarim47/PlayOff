@@ -29,6 +29,10 @@ const loadSequelize = async() => {
         db.Mec = models.Mec(sequelize)
         db.MecBezTimova = models.MecBezTimova(sequelize)
 
+        db.ZahtjevMecBezTimova.belongsTo(db.Korisnik, {foreignKey: 'primaoc'})
+        db.ZahtjevTim.belongsTo(db.Korisnik, {foreignKey:'primaoc'})
+        db.ZahtjevTim.belongsTo(db.Tim, {foreignKey:'tim'})
+        
         await sequelize.authenticate()
         await sequelize.sync()
         console.log('Connected to database.')

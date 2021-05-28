@@ -20,6 +20,15 @@ class KorisnikService {
             return error.response.data
         }
     }
+
+    static async usernameSearch(username){
+        try {
+            let res = await axios.get(config.BACKEND_URL + `/korisnik/username/${username}?cijelo=ne`)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
 }
 
 export default KorisnikService

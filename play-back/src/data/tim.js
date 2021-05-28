@@ -9,7 +9,8 @@ class TimData{
 
     static async dodaj(tim){
         try {
-            await baza.Tim.create(tim)
+            let res = await baza.Tim.create(tim)
+            return res.dataValues
         } catch (error) {
             throw error
         }
@@ -72,6 +73,41 @@ class TimData{
             clanoviID = clanoviID.map(p=>p.dataValues.korisnik)
             let clanovi = await baza.Korisnik.findAll({where:{id: clanoviID}, attributes:{exclude:['password']}})
             return clanovi
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async dobaviOsnovane(korisnik, term, sport){
+        let options = {
+            kapiten:korisnik,
+            ime:{
+                [Op.like]:`%${term}%`
+            }
+        }
+        if (sport) options.sport=sport
+        try {
+            let res = await baza.Tim.findAll({
+                where:options})
+            return res.map(r => r.dataValues)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async dobavi(term, sport, kapiten){
+        let options = {
+            ime:{
+                [Op.like]:`%${term}%`
+            }
+        }
+        if (kapiten)
+            options.kapiten= {[Op.not]:kapiten}
+        if (sport) options.sport=sport
+        try {
+            let res = await baza.Tim.findAll({
+                where:options})
+            return res.map(r => r.dataValues)
         } catch (error) {
             throw error
         }

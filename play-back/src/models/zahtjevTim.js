@@ -26,6 +26,11 @@ export default (sequelize) =>{
             type:Sequelize.INTEGER,
             unique:false,
             allowNull:false
+        },
+        status:{
+            type:Sequelize.BOOLEAN,
+            unique:false,
+            allowNull:true
         }
     })
 }

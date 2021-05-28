@@ -60,7 +60,7 @@ class RegisterPage extends Component {
             if (res.code === 201) this.props.history.push("/")
             else this.setState({ invalid: true })
         } catch (error) {
-            if (error.name == "ValidationError") {
+            if (error.name === "ValidationError") {
                 let errors = {}
                 error.inner.map(i => errors[i.path + "Error"] = i.message)
                 this.setState({ ...this.state, ...errors })
@@ -81,7 +81,7 @@ class RegisterPage extends Component {
     render() {
         return (
             <div className="container-fullwidth  vertical-center">
-                <div className="card mx-auto" style={{ width: "20rem" }}>
+                <div className="card mx-auto bg-light" style={{ width: "20rem" }}>
                     <input type="text" className="form-control" placeholder="Korisničko ime" onChange={(e) => this.changeAttribute("username", e.target.value)} />
                     <div className="validation-msg">{this.state.usernameError}</div>
 
@@ -126,10 +126,10 @@ class RegisterPage extends Component {
                         </FormControl>
                     </div>
 
-                    <button className="btn btn-primary" onClick={() => this.register()}>Registruj se</button>
+                    <button className="btn btn-success" onClick={() => this.register()}>Registruj se</button>
                     <div className="validation-msg">{this.state.invalid ? "Provjerite unesene podatke." : ""}</div>
 
-                    <button className="btn btn-primary" onClick={() => this.redirectLogin()}>Povratak na Login</button>
+                    <button className="btn btn-success" onClick={() => this.redirectLogin()}>Povratak na Login</button>
                 </div>
             </div>
         )

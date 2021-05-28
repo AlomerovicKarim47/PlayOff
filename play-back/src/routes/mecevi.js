@@ -12,5 +12,6 @@ meceviRoutes.get('/mecevi/dobaviTermine/:korisnikID', MeceviCtrl.dobaviTermin)
 meceviRoutes.patch('/mecevi/zavrsiTermin/:mecID', MeceviCtrl.zavrsiTermin)
 meceviRoutes.post('/mecevi/dodajKorisnikaTermin', MeceviCtrl.dodajKorisnikaTermin)
 meceviRoutes.delete('/mecevi/izbaciKorisnikaTermin', MeceviCtrl.izbaciKorisnikaTermin)
+meceviRoutes.get('/mecevi/dobaviOrganizovaneTermine/:korisnikID', MeceviCtrl.dobaviOrganizovaneTermine)
 
 export default meceviRoutes

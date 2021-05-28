@@ -98,7 +98,8 @@ const dodajTermin = async (req, res, next) => {
         vrijemeOdrzavanja: data.vrijemeOdrzavanja,
         mjesto: data.mjesto,
         zavrsen: false,
-        otkazan: false
+        otkazan: false,
+        mec: data.mec
     }
 
     try {
@@ -106,10 +107,11 @@ const dodajTermin = async (req, res, next) => {
         console.log("dodajTermin called")
         let t = await MeceviData.dodajTermin(termin)
         console.log("dodajTermin inserted")
-        await MeceviData.dodajKorisnikaTermin({ korisnik: termin.organizator, mec: t.dataValues.id })
+        await MeceviData.dodajKorisnikaTermin({ korisnik: termin.organizator, mec: t.id })
         console.log("dodajKorisnikaTermin inserted")
         res.statusCode = 201
         res.message = "Termin uspješno ubačen."
+        res.data = JSON.stringify(t)
         console.log("dodajTermin finished\n")
     } catch (error) {
         console.log("dodajTermin failed")
@@ -195,6 +197,18 @@ const izbaciKorisnikaTermin = async (req, res, next) => {
     sendResponse(req, res)
 }
 
+const dobaviOrganizovaneTermine = async (req, res, next) => {
+    try {
+        let korisnik = req.params.korisnikID
+        let termini = await MeceviData.dobaviOrganizovaneTermine(korisnik)
+        res.data = JSON.stringify(termini)
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
 const MeceviCtrl = {
     dobaviMecKorisnik,
     dobaviMecTim,
@@ -204,7 +218,8 @@ const MeceviCtrl = {
     dobaviTermin,
     zavrsiTermin,
     dodajKorisnikaTermin,
-    izbaciKorisnikaTermin
+    izbaciKorisnikaTermin,
+    dobaviOrganizovaneTermine
 }
 
 export default MeceviCtrl

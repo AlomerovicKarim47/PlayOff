@@ -1,125 +1,84 @@
-import React, { Component, useState } from 'react'
-import 'date-fns'
-import DateFnsUtils from '@date-io/date-fns'
-import { observer } from 'mobx-react'
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import Select from 'react-select';
-import TimePicker from 'react-time-picker';
-import Text from 'react-text'
+import React, { Component } from 'react'
 
+import {Route, Link, Switch, withRouter} from 'react-router-dom'
 
+import Organizacija from '../pages/Organizacija'
+import Timovi from '../pages/Timovi'
+import Zahtjevi from '../pages/Zahtjevi'
 
-import KorisnikService from '../services/KorisnikService'
-import registerSchema from '../validation/RegisterValidation'
+import {observer} from 'mobx-react'
+import UserStore from '../stores/UserStore'
+import {Dropdown} from 'react-bootstrap'
 
-
-const data = [
-    {
-      value: 1,
-      label: "cerulean"
-    },
-    {
-      value: 2,
-      label: "fuchsia rose"
-    },
-    {
-      value: 3,
-      label: "true red"
-    },
-    {
-      value: 4,
-      label: "aqua sky"
-    },
-    {
-      value: 5,
-      label: "tigerlily"
-    },
-    {
-      value: 6,
-      label: "blue turquoise"
+class HomePage extends Component {
+    
+    logOut = () => {
+        this.props.history.push("/")
+        UserStore.token = null
+        UserStore.user = null
     }
-  ];
-
-export default class HomePage extends Component {
-	
-    state = {
-        username: "",
-        password: "",
-        email: "",
-        ime: "",
-        prezime: "",
-        rodjendan: null,
-        drzava: "",
-        grad: "",
-        spol: true,
-        radioSpol: "",
-        invalid: false,
-		display: false
-		
-    }
-	constructor(){
-		super();
-
-	}
-
-    changeAttribute = (att, val) => {
-        this.setState({ [att]: val, [att + "Error"]: "", invalid: false })
-    }
-
-	
 
     render() {
+        let organizacija = '/home/organizacija'
+        let timovi = '/home/timovi'
+        let zahtjevi = '/home/zahtjevi'
         return (
-			<div className="">
-                <div className="card mx-auto" style={{ width: "40rem" }}>
-					<h2>PLAYOFF</h2>
-                    <input type="text" className="form-control" placeholder="Search..." onChange={(e) => this.changeAttribute("username", e.target.value)} />
-					
+            <div>
+
+                <div class = "container-fluid">
+                    <div class = "row">
+                        <div class = "col" style = {{padding:"0px"}}>
+                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                                <ul class="navbar-nav mr-auto">
+                                    <div class = "col" style = {{fontSize:"30px", fontWeight:"bold", display:"inline-block", color:"white"}}>
+                                        ⚽PLAY OFF🏀
+                                    </div>
+                                    <li class="nav-item">
+                                        <Link class = "nav-link" to = {organizacija+"/organizuj"}>Organizacija</Link>
+                                    </li>
+                                    <li class="nav-item">
+                                        <Link class = "nav-link" to = {timovi+"/mojiTimovi"}>Timovi</Link>
+                                    </li>
+                                    <li class="nav-item">
+                                        <Link class = "nav-link" to = {zahtjevi+"/svi"}>Zahtjevi</Link>
+                                    </li>
+                                </ul>                            
+                            </nav>
+                        </div>
+                        <div class = "col bg-dark" style = {{paddingTop:"5px"}}>
+                            <div class="input-group">
+                                <input type = "text" class = "form-control" placeholder="Traži"/>
+                                <div class="input-group-append">
+                                    <button class="btn btn-success" type="button">Traži</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "col bg-dark" style = {{paddingTop:"5px"}}>
+                            <div style = {{float:'right'}}>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="link" id="dropdown-basic" style = {{color:'white', textDecoration:'none'}}>
+                                    {UserStore.user.username}
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1">Moj Profil</Dropdown.Item>
+                                    <Dropdown.Item onClick={()=>this.logOut()}>Odjava</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-				<div classname="container-fullwidth left">
-					<button className="btn btn-primary" >Organizacija</button>
-					<button className="btn btn-primary" >Timovi</button>
-					<button className="btn btn-primary" >Zahtjevi</button>
-				</div>
-			<div classname="left">
-				<div className="card " style={{ width: "20rem" }}>
-					<button className="btn btn-primary " >Organizuj</button>
-					<button className="btn btn-primary" >U toku</button>
-					<button className="btn btn-primary" >Zakazano</button>	
-				</div>
-				<div className="card2 " style={{ width: "20rem" }}>
-					<input type="text" className="form-control" placeholder="Mjesto" onChange={(e) => this.changeAttribute("username", e.target.value)} />
-					<div className="dropdown " style={{ width: "20rem" }}>
-					<Select
-						placeholder="Akcija"
-						value="test" 
-						options={data} 
-					/>
-					</div>
-					<div className="dropdown " style={{ width: "20rem" }}>
-					<Select
-						placeholder="Sport"
-						value="test" 
-						options={data} 
-					/>
-					</div>
-					<div className="dropdown " style={{ width: "20rem" }}>
-					<Select
-						placeholder="Vrijeme"
-						value="test" 
-						options={data} 
-					/>
-					</div>
-					<button className="btn btn-primary" >Spasi</button>
-					<button className="btn btn-primary" >Zakazano</button>
-				</div>
-			</div>
+
+                <Switch>
+                    <Route path = {organizacija} component = {Organizacija}/>
+                    <Route path = {timovi} component = {Timovi}/>
+                    <Route path = {zahtjevi} component = {Zahtjevi}/>
+                </Switch>
+
             </div>
         )
     }
 }
+
+export default observer(withRouter(HomePage))
