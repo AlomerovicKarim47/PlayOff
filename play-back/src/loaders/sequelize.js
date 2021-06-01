@@ -32,6 +32,10 @@ const loadSequelize = async() => {
         db.ZahtjevMecBezTimova.belongsTo(db.Korisnik, {foreignKey: 'primaoc'})
         db.ZahtjevTim.belongsTo(db.Korisnik, {foreignKey:'primaoc'})
         db.ZahtjevTim.belongsTo(db.Tim, {foreignKey:'tim'})
+        db.ZahtjevMec.belongsTo(db.Tim, {foreignKey: 'timPosiljaoc', as: 'prviTim'})
+        db.ZahtjevMec.belongsTo(db.Tim, {foreignKey: 'timPrimaoc', as: 'drugiTim'})
+        db.Mec.belongsTo(db.Tim, {foreignKey: "tim1", as: "prviTim"})
+        db.Mec.belongsTo(db.Tim, {foreignKey: "tim2", as: "drugiTim"})
         
         await sequelize.authenticate()
         await sequelize.sync()

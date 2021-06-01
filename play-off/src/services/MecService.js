@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '../config/config'
+import UserStore from '../stores/UserStore'
 
 class MecService{
     static async kreirajMecBezTimova(data){
@@ -25,6 +26,17 @@ class MecService{
             let res = await axios.get(`${config.BACKEND_URL}/mecevi/dobaviOrganizovaneTermine/${korisnik}`)
             return res.data
         }catch(error){
+            return error.response.data
+        }
+    }
+
+    static async dobaviMeceveKorisnika(organizovani){
+        try {
+            let params = ""
+            if (organizovani) params = "?organizovani=da"
+            let res = await axios.get(`${config.BACKEND_URL}/mecevi/dobaviKorisnik/${UserStore.user.id}${params}`)
+            return res.data
+        } catch (error) {
             return error.response.data
         }
     }

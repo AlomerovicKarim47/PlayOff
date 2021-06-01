@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 let registerSchema = yup.object().shape({
     username: yup.string().required("Ovo polje je obavezno."),
-    password: yup.string().required("Ovo polje je obavezno.").min(8, "Lozinka mora imati bar 8 karaktera"),
+    password: yup.string().required("Ovo polje je obavezno."),/*.min(8, "Lozinka mora imati bar 8 karaktera"),*/
     email: yup.string().email("Unesite validnu email adresu.").required("Ovo polje je obavezno"),
     ime: yup.string().required("Ovo polje je obavezno."),
     prezime: yup.string().required("Ovo polje je obavezno."),

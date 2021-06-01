@@ -3,8 +3,10 @@ import { MeceviData } from '../data'
 
 // DONE
 const dobaviMecKorisnik = async (req, res, next) => {
+    let organizovani = false
+    if (req.query.organizovani === "da") organizovani = true
     try {
-        let mecevi = await MeceviData.dobaviMecKorisnik(req.params.korisnikID)
+        let mecevi = await MeceviData.dobaviMecKorisnik(req.params.korisnikID, organizovani)
         res.data = mecevi
         res.statusCode = 200
     } catch (error) {

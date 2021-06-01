@@ -4,7 +4,6 @@ import {Link, Route, Switch} from 'react-router-dom'
 import Organizuj from './Organizuj'
 import Zakazano from './Zakazano'
 import MojiDogadjaji from './MojiDogadjaji'
-import MojDogadjaj from './MojDogadjaj'
 
 export default class Organizacija extends Component {
     render() {

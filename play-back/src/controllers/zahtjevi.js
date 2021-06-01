@@ -29,7 +29,8 @@ const posaljiZahtjevMec = async (req, res, next) => {
 		vidjenost: false,
 		vrijemeOdrzavanja: data.vrijeme,
 		mjesto: data.mjesto,
-		status: false
+		status: null,
+        sport:data.sportID
     }
     try {
         await ZahtjeviData.posaljiZahtjevMec(zahtjev)
@@ -115,7 +116,6 @@ const azurirajZahtjevZaMecBezTimova = async(req, res, next) => {
         let id = req.params.zahtjevID
         let primaoc = req.query.primaoc
         let mec = req.query.mec
-        console.log(id, data)
         await ZahtjeviData.azurirajZahtjevZaMecBezTimova(id, data)
         if (data.status === true)
             await MeceviData.dodajKorisnikaTermin({korisnik: primaoc, mec: mec})
@@ -152,6 +152,41 @@ const azurirajZahtjevZaTim = async (req, res, next)=>{
     sendResponse(req, res)
 }
 
+const dobaviKorisnikoveZahtjeveZaMec = async (req, res, next) => {
+    try {
+        let korisnik = req.params.korisnikID
+        let zahtjevi = await ZahtjeviData.dobaviKorisnikoveZahtjeveZaMec(korisnik)
+        res.data = zahtjevi
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
+const azurirajZahtjevZaMec = async (req, res, next) => {
+    try {
+        let data = req.body
+        await ZahtjeviData.azurirajZahtjevZaTim(data)
+        if (data.status === true){
+            let mec = {
+                tim1: data.timPosiljaoc,
+                tim2: data.timPrimaoc,
+                sport: data.sport,
+                vrijemeOdrzavanja: data.vrijemeOdrzavanja,
+                mjesto: data.mjesto,
+                otkazan:false,
+                zavrsen:false
+            }
+            await MeceviData.dodajMec(mec)
+        }
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
 
 const ZahtjeviCtrl = {
 	posaljiZahtjevTim,
@@ -162,7 +197,9 @@ const ZahtjeviCtrl = {
     dobaviZahtjeveZaMecBezTimova,
     azurirajZahtjevZaMecBezTimova,
     dobaviKorisnikoveZahtjeveZaTim,
-    azurirajZahtjevZaTim
+    azurirajZahtjevZaTim,
+    dobaviKorisnikoveZahtjeveZaMec,
+    azurirajZahtjevZaMec
 }
 
 export default ZahtjeviCtrl

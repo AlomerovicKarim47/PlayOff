@@ -1,51 +1,52 @@
 import React, { Component } from 'react'
-import ZahtjevService from '../services/ZahtjevService'
-import UserStore from '../stores/UserStore'
 import sportovi from '../config/sportovi'
-import {CheckIcon, XIcon} from '@primer/octicons-react'
-import {observer} from 'mobx-react'
+import {XIcon, CheckIcon} from '@primer/octicons-react'
+import ZahtjevService from '../services/ZahtjevService'
 
-class ZahtjeviZaMecBezTimova extends Component {
-    
+export default class ZahtjeviZaMec extends Component {
     state = {
         zahtjevi:[]
     }
 
+    prihvatiZahtjev = async (zahtjev) => {
+        zahtjev.status = true
+        try {
+            await ZahtjevService.azurirajZahtjevZaMec(zahtjev)
+            let res2 = await ZahtjevService.dobaviZahtjeveZaMec()
+            this.setState({zahtjevi: res2.data})
+        } catch (error) {
+            throw error
+        }
+    }
+
+    odbijZahtjev = async (zahtjev) => {
+        zahtjev.status = false
+        try {
+            await ZahtjevService.azurirajZahtjevZaMec(zahtjev)
+            let res2 = await ZahtjevService.dobaviZahtjeveZaMec()
+            this.setState({zahtjevi: res2.data})
+        } catch (error) {
+            throw error
+        }
+    }
+
     async componentDidMount(){
-        let res = await ZahtjevService.dobaviZahtjeveZaMecBezTimova(UserStore.user.id, null)
-        this.setState({zahtjevi: JSON.parse(res.data)})
-        
-    }
-
-    prihvatiZahtjev = async(zahtjev)=>{ 
         try {
-            await ZahtjevService.prihvatiZahtjevZaMecBezTimova(zahtjev.id, zahtjev.primaoc, zahtjev.mec)
-            //Refreshuj listu zahtjeva
-            let res = await ZahtjevService.dobaviZahtjeveZaMecBezTimova(UserStore.user.id, null)
-            this.setState({zahtjevi: JSON.parse(res.data)})
+            let res = await ZahtjevService.dobaviZahtjeveZaMec()
+            this.setState({zahtjevi: res.data})
         } catch (error) {
             throw error
         }
     }
-
-    odbijZahtjev = async(zahtjev)=>{
-        try {
-            await ZahtjevService.odbijZahtjevZaMecBezTimova(zahtjev.id)
-            let res2 = await ZahtjevService.dobaviZahtjeveZaMecBezTimova(UserStore.user.id, null)
-            this.setState({zahtjevi: JSON.parse(res2.data)})
-        } catch (error) {
-            throw error
-        }
-    }
-
     render() {
         return (
             <div>
                 {this.state.zahtjevi.map(z => {
-                    if (z.sport !== 0 && z.mec)
+                    if (z.sport !== 0)
                     return (
                         <div key= {z.id} class = "card bg-light" style = {{margin:'5px'}}>
                             {sportovi.find(s=>s.id===z.sport).naziv}<br/>
+                            {z.prviTim.ime + " - " + z.drugiTim.ime}<br/>
                             {z.mjesto}<br/>
                             {z.vrijemeOdrzavanja}
                             <div style = {{position:'absolute', width:'100%', paddingRight:'30px', paddingTop:'10px'}} >
@@ -75,5 +76,3 @@ class ZahtjeviZaMecBezTimova extends Component {
         )
     }
 }
-
-export default observer(ZahtjeviZaMecBezTimova)

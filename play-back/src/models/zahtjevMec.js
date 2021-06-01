@@ -36,6 +36,11 @@ export default (sequelize)=>{
             type:Sequelize.BOOLEAN,
             unique:false,
             allowNull:true
+        },
+        sport:{
+            type:Sequelize.INTEGER,
+            unique: false,
+            allowNull:false
         }
     })
 }

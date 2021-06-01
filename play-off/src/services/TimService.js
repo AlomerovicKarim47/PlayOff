@@ -12,6 +12,15 @@ class TimService{
         }
     }
 
+    static async uploadTimSliku(data, conf, tim){
+        try {
+            let res = await axios.post(`${config.BACKEND_URL}/tim/slika/${tim}`, data, conf)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
     static async dobaviOsnovaneTimove(term, sport){
         let params = ""
         if (term) params = `?term=${term}`

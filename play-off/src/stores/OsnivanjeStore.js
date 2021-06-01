@@ -10,7 +10,8 @@ let OsnivanjeStore = observable({
     primaocUcesnik: null,
     tim:null,
     sport:0,
-    ime:""
+    ime:"",
+    slika:null
 })
 
 export default OsnivanjeStore

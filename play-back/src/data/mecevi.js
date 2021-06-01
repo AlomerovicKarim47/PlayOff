@@ -9,14 +9,33 @@ class MeceviData {
 
     // Trenutno prikazuje mečeve svih timova u kojim je korisnik, neovisno da li je on igrao ili ne
     // Ovdje se ne sortiraju, sortiraj meceve po datumu na frontu
-    static async dobaviMecKorisnik(korisnikID) {
+    static async dobaviMecKorisnik(korisnikID, organizovani) {
         try {
-            let timovi = await baza.ClanoviTima.findAll({ where: { korisnik: korisnikID } })
-
+            let options = {}
+            if (organizovani) options = {kapiten: korisnikID}
+            let res = await baza.ClanoviTima.findAll({ where: { korisnik: korisnikID } })
+            let timovi = res.map(r => r.dataValues)
             let mecevi = []
             for (const tim of timovi) {
-                mecevi.push(await baza.Mec.findAll({ where: { tim1: tim.id } }))
-                mecevi.push(await baza.Mec.findAll({ where: { tim2: tim.id } }))
+                let mecs = await baza.Mec.findAll({ 
+                    where: { 
+                        [Op.or]: [{tim1: tim.id}, {tim2: tim.id} ]
+                    },
+                    include:[
+                        {
+                            model: baza.Tim,
+                            as: "prviTim",
+                            where:options
+                        },
+                        {
+                            model: baza.Tim,
+                            as: "drugiTim"
+                        }
+                    ] 
+                })
+                let m = mecs.map(m => m.dataValues)
+                mecevi = [...mecevi, ...m]
+                //mecevi.push(await baza.Mec.findAll({ where: { tim2: tim.id } }))
             }
 
             return mecevi

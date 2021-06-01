@@ -10,7 +10,18 @@ class TimData{
     static async dodaj(tim){
         try {
             let res = await baza.Tim.create(tim)
+            await baza.ClanoviTima.create({korisnik: tim.kapiten, tim: res.dataValues.id})
             return res.dataValues
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async uploadSliku(id, slika){
+        try {
+            let tim = await baza.Tim.findOne({where:{id}})
+            tim.slika = slika
+            await tim.save()
         } catch (error) {
             throw error
         }

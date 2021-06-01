@@ -111,7 +111,7 @@ class UcesniciMecBezTimova extends Component {
                     {
                     OrganizujStore.ucesnici.map((u) => {
                         return (
-                            <div class = "card bg-light" style = {{margin:'2px'}}>
+                            <div key = {u.id} class = "card bg-light" style = {{margin:'2px'}}>
                                 <div class = "row">
                                     <div class = "col">Slika ovdje</div>
                                     <div class = "col">{u.Korisnik.ime + " " + u.Korisnik.prezime + " (" + u.Korisnik.username + ")"}</div>

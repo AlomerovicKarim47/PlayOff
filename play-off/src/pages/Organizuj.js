@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
-import {PlusCircleIcon} from '@primer/octicons-react'
 import sportovi from '../config/sportovi'
 import {Collapse} from 'react-bootstrap'
-import KorisnikService from '../services/KorisnikService'
 import {observer} from 'mobx-react'
 import OrganizujStore from '../stores/OrganizujStore'
 import UcesniciMecBezTimova from '../components/UcesniciMecBezTimova'
@@ -15,6 +13,7 @@ import MecService from '../services/MecService'
 import {resetOrganizujStore} from '../utility/resetStore'
 import tipoviDogadjaja from '../config/tipoviDogadjaja'
 import moment from 'moment'
+import ZahtjevService from '../services/ZahtjevService'
 
 class Organizuj extends Component {
 
@@ -41,6 +40,24 @@ class Organizuj extends Component {
             throw error
         }
         
+    }
+
+    posaljiZahtjevZaMec = async () => {
+        OrganizujStore.kreirano = true
+        let zahtjev = {
+            sadrzaj : "Zahtjev za meč.",
+            posiljaocID: OrganizujStore.tim1,
+            primaocID: OrganizujStore.tim2,
+            sportID: OrganizujStore.sport,
+            vrijeme: `${moment(OrganizujStore.datum).format('DD/MM/YYYY')} ${OrganizujStore.vrijeme}`,
+            mjesto: OrganizujStore.mjesto
+        }
+        try {
+            let res = await ZahtjevService.posaljiZahtjevZaMec(zahtjev)    
+            console.log(res)
+        } catch (error) {
+            throw error
+        }
     }
 
     render() {
@@ -98,7 +115,9 @@ class Organizuj extends Component {
                         <div class = "col-sm-1">Tip događaja:</div> 
                         <div class = "col-sm-11">
                             <Select options = {tipoviDogadjajaOpcije} className="react-select" isDisabled = {OrganizujStore.kreirano}
+                                value = {OrganizujStore.tip}
                                 onChange = {(e) => {
+                                    OrganizujStore.tip = e
                                     if (e.value === 2) 
                                         this.setState({biranjeTimova:true})
                                     else
@@ -112,10 +131,10 @@ class Organizuj extends Component {
                             <br/>
                             <div class = "row">
                                 <div class = "col">
-                                    <BiranjeTima/>
+                                    <BiranjeTima tim = {1} disabled = {OrganizujStore.kreirano}/>
                                 </div>
                                 <div class = "col">
-                                    <BiranjeTima protivnik = {true}/>
+                                    <BiranjeTima tim = {2} protivnik = {true} disabled = {OrganizujStore.kreirano}/>
                                 </div>
                             </div>
                         </div>
@@ -125,14 +144,22 @@ class Organizuj extends Component {
                             <button 
                                 style = {{width:'100%'}}
                                 class = "btn btn-outline-success"
-                                onClick = {() => resetOrganizujStore()}
+                                onClick = {() => {
+                                    this.setState({biranjeTimova:false})
+                                    resetOrganizujStore()
+                                }}
                                 >Organizuj drugu aktivnost</button>
                         </div>
                         <div class = "col">
                             <button type = "button" 
                                 style = {{width:'100%'}}
                                 class = "btn btn-success" 
-                                onClick = {() => this.kreirajMecBezTimova()} 
+                                onClick = {() => {
+                                        if (this.state.biranjeTimova)
+                                            this.posaljiZahtjevZaMec()
+                                        else
+                                            this.kreirajMecBezTimova()
+                                    }} 
                                 disabled={OrganizujStore.kreirano}>
                                     Zakaži
                             </button>

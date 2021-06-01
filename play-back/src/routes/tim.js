@@ -1,9 +1,12 @@
 import {Router} from 'express'
 import {TimCtrl} from '../controllers'
+import {upload} from '../middleware'
 
 const timRoutes = Router()
 
 timRoutes.post("/tim", TimCtrl.dodaj)
+
+timRoutes.post("/tim/slika/:timID", upload, TimCtrl.uploadSliku)
 
 timRoutes.patch("/tim/:timID", TimCtrl.izmjeni)
 

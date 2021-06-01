@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '../config/config'
+import UserStore from '../stores/UserStore'
 
 class ZahtjevService{
     static async posaljiZahtjevZaMecBezTimova(data){
@@ -71,6 +72,33 @@ class ZahtjevService{
     static async azurirajZahtjevZaTim(data){
         try {
             let res = await axios.patch(`${config.BACKEND_URL}/zahtjevi/tim`, data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
+    static async posaljiZahtjevZaMec(data){
+        try {
+            let res = await axios.post(`${config.BACKEND_URL}/zahtjevi/mec`, data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
+    static async dobaviZahtjeveZaMec(){
+        try {
+            let res = await axios.get(`${config.BACKEND_URL}/zahtjevi/mecKorisnika/${UserStore.user.id}`)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
+    static async azurirajZahtjevZaMec(data){
+        try {
+            let res = await axios.patch(`${config.BACKEND_URL}/zahtjevi/mec`, data)
             return res.data
         } catch (error) {
             return error.response.data

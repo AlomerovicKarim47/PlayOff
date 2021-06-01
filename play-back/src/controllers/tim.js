@@ -20,6 +20,18 @@ const dodaj = async (req, res, next) => {
     sendResponse(req, res)
 }
 
+const uploadSliku = async (req, res, next) => {
+    try {
+        let timID = req.params.timID
+        
+        await TimData.uploadSliku(timID,req.file.buffer)
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
 const izmjeni = async (req, res, next) => {
     let id = req.params.timID
     let data = req.body
@@ -140,7 +152,8 @@ const TimCtrl = {
     dodajProsli,
     clanovi,
     dobaviOsnovane,
-    dobavi
+    dobavi,
+    uploadSliku
 }
 
 export default TimCtrl

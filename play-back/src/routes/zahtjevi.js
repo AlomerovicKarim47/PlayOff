@@ -21,4 +21,8 @@ zahtjeviRoutes.get("/zahtjevi/timZaKorisnika/:korisnikID", ZahtjeviCtrl.dobaviKo
 
 zahtjeviRoutes.patch("/zahtjevi/tim", ZahtjeviCtrl.azurirajZahtjevZaTim)
 
+zahtjeviRoutes.get("/zahtjevi/mecKorisnika/:korisnikID", ZahtjeviCtrl.dobaviKorisnikoveZahtjeveZaMec)
+
+zahtjeviRoutes.patch("/zahtjevi/mec/", ZahtjeviCtrl.azurirajZahtjevZaMec)
+
 export default zahtjeviRoutes

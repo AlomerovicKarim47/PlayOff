@@ -7,12 +7,13 @@ import {observer} from 'mobx-react'
 class MojTim extends Component {
     render() {
         const sportOpcije = sportovi.map(s => {return {label:s.naziv, value: s.id}})
+        console.log(Buffer.from(this.props.tim.slika.data).toString('base64'))
         return (
             <div>
                 <div class = "container-fluid" style = {{padding:"20px"}}>
                    <div class = "row" >
                         <div class = "card"style = {{width:'20%', height:'0', paddingBottom:'20%', margin:'0 auto'}}>
-                            <img src="..." class="img-fluid"/>
+                            <img src={`data:${"image/png"};base64,${Buffer.from(this.props.tim.slika.data).toString('base64')}`} class="img-fluid"/>
                         </div>
                     </div>
                     <div class = "row">

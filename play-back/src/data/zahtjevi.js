@@ -36,7 +36,8 @@ class ZahtjeviData{
         try {
             let zahtjevi = await baza.ZahtjevTim.findAll(
                 { where: { tim: timID },
-                    include: baza.Korisnik }
+                    include: baza.Korisnik,
+                    order: [['id', 'desc']]  }
             )
             return zahtjevi
         } catch (error) {
@@ -95,6 +96,40 @@ class ZahtjeviData{
         try {
             let zahtjev = await baza.ZahtjevTim.findOne({where:{id}})
             Object.keys(data).map(p=>zahtjev[p] = data[p])
+            await zahtjev.save()
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async dobaviKorisnikoveZahtjeveZaMec(korisnik){
+        try {
+            let res = await baza.ZahtjevMec.findAll({
+                include:[
+                    {
+                        model: baza.Tim,
+                        as: 'drugiTim',
+                        where:{
+                            kapiten: korisnik
+                        } 
+                    },
+                    {
+                    model: baza.Tim,
+                    as: 'prviTim'
+                }],
+                order: [['id', 'desc']]
+            })
+            
+            return res.map(r=>r.dataValues)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async azurirajZahtjevZaTim(data){
+        try {
+            let zahtjev = await baza.ZahtjevMec.findOne({where:{id:data.id}})
+            Object.keys(data).map(p => zahtjev[p] = data[p])
             await zahtjev.save()
         } catch (error) {
             throw error

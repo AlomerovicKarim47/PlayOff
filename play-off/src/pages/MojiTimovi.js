@@ -23,9 +23,9 @@ export default class MojiTimovi extends Component {
                     {this.state.timovi.map(m=>{
                         if (m.sport !== 0)
                         return(
-                            <Link id = {m.id} to = {`/home/timovi/mojiTimovi/tim/${m.id}`} style = {{textDecoration:'none', color:'black'}}
+                            <Link key = {m.id} to = {`/home/timovi/mojiTimovi/tim/${m.id}`} style = {{textDecoration:'none', color:'black'}}
                                 onClick = {() => this.setState({odabraniTim: m})}>
-                                <div id = {m.id} class = "card bg-light" style = {{margin:'5px', cursor:'pointer'}}>
+                                <div  class = "card bg-light" style = {{margin:'5px', cursor:'pointer'}}>
                                     {m.ime}
                                     <br/>
                                     {  

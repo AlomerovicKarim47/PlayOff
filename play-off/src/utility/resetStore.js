@@ -10,11 +10,15 @@ const resetOrganizujStore = ()=>{
         OrganizujStore.kreirano= false
         OrganizujStore.primaocUcesnik= null
         OrganizujStore.mec=null
+        OrganizujStore.tip = null
 
         OrganizujStore.mjesto=""
         OrganizujStore.vrijeme= ""
         OrganizujStore.datum= new Date()
         OrganizujStore.sport=0
+
+        OrganizujStore.tim1 = null
+        OrganizujStore.tim2 = null
 }
 
 const resetOsnivanjeStore = () => {

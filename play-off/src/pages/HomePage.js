@@ -40,7 +40,7 @@ class HomePage extends Component {
                                         <Link class = "nav-link" to = {timovi+"/mojiTimovi"}>Timovi</Link>
                                     </li>
                                     <li class="nav-item">
-                                        <Link class = "nav-link" to = {zahtjevi+"/svi"}>Zahtjevi</Link>
+                                        <Link class = "nav-link" to = {zahtjevi+"/mecBezTimova"}>Zahtjevi</Link>
                                     </li>
                                 </ul>                            
                             </nav>

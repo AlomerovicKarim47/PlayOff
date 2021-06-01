@@ -5,6 +5,7 @@ import {observer} from 'mobx-react'
 import sportovi from '../config/sportovi'
 import {Route, Link, withRouter} from 'react-router-dom'
 import MojDogadjaj from '../pages/MojDogadjaj'
+import moment from 'moment'
 
 class MojiDogadjaji extends Component {
     state = {
@@ -15,8 +16,14 @@ class MojiDogadjaji extends Component {
 
     async componentDidMount(){
         let res = await MecService.dobaviOrganizovaneTermineKorisnika(UserStore.user.id)
-        let dogadjaji = JSON.parse(res.data).map(d => {return {...d, tip:1}})
-        this.setState({dogadjaji:dogadjaji})
+        let zakazani = JSON.parse(res.data).map(d => {return {...d, tip:1}})
+        let rez2 = await MecService.dobaviMeceveKorisnika(true)
+
+        let zakazani2 = rez2.data.map(r => {return {...r, tip:2}})
+    
+        zakazani = [...zakazani, ...zakazani2].sort((a, b) => moment(a).isBefore(moment(b)))
+
+        this.setState({dogadjaji:zakazani})
     }
 
     render() {
@@ -26,9 +33,10 @@ class MojiDogadjaji extends Component {
                 {this.state.dogadjaji.map(m=>{
                         if (m.sport !== 0)
                         return(
-                        <Link id = {m.id} to = {`/home/organizacija/mojiDogadjaji/dogadjaj/${m.id}`} style = {{textDecoration:'none', color:'black'}} 
+                        <Link key = {m.id} to = {`/home/organizacija/mojiDogadjaji/dogadjaj/${m.id}`} style = {{textDecoration:'none', color:'black'}} 
                         onClick = {() => this.setState({odabraniDogadjaj:m})}>
-                            <div class = "card bg-light" style = {{margin:'5px', cursor:'pointer'}}>
+                            <div class = {m.tip===1?"card bg-light":"card" } style = {{margin:'5px', cursor:'pointer', background:"#ccffcc"}}>
+                                {m.tip === 2?m.prviTim.ime + " - " + m.drugiTim.ime:null}<br hidden={m.tip !== 2}/>
                                 {sportovi.find(s => s.id === m.sport).naziv}
                                 <br/>
                                 {m.vrijemeOdrzavanja}<br/>

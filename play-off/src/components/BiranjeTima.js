@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
-import OsnivanjeStore from '../stores/OsnivanjeStore'
 import Select from 'react-select'
-import {PlusCircleIcon} from '@primer/octicons-react'
-import {Collapse} from 'react-bootstrap'
 import {observer} from 'mobx-react'
-import KorisnikService from '../services/KorisnikService'
 import ZahtjevService from '../services/ZahtjevService'
 import UserStore from '../stores/UserStore'
-import {resetOsnivanjeStore} from '../utility/resetStore'
 import TimService from '../services/TimService'
 import OrganizujStore from '../stores/OrganizujStore'
 
@@ -79,6 +74,7 @@ class BiranjeTima extends Component {
                                 <div>
                                     Dodaj tim:
                                     <Select
+                                        isDisabled = {this.props.disabled}
                                         components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                                         placeholder = "Naziv tima"
                                         isClearable = {true}
@@ -89,6 +85,10 @@ class BiranjeTima extends Component {
                                             this.traziKorisnike(val)
                                         }}
                                         onChange = {(val) => {
+                                            if (this.props.tim === 1)
+                                                OrganizujStore.tim1 = val.value.id
+                                            else if (this.props.tim ===2)
+                                                OrganizujStore.tim2 = val.value.id
                                             this.setState({selektovaniUcesnik : val})
                                         }}
                                     />
