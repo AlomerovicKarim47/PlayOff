@@ -32,6 +32,7 @@ const resetOsnivanjeStore = () => {
     OsnivanjeStore.tim=null
     OsnivanjeStore.sport=0
     OsnivanjeStore.ime = ""
+    OsnivanjeStore.slika = null
 }
 
 export {

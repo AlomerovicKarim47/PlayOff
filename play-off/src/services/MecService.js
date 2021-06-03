@@ -41,6 +41,15 @@ class MecService{
         }
     }
 
+    static async zavrsiMec(mec, data){
+        try {
+            let res = await axios.patch(`${config.BACKEND_URL}/mecevi/zavrsiMec/${mec}`, data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
     /*static async dodajKorisnikaUTermin(data){
         try {
             let res = await axios.post(`${config.BACKEND_URL}/mecevi/dodajKorisnikaTermin`, data)

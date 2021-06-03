@@ -6,7 +6,7 @@ const timRoutes = Router()
 
 timRoutes.post("/tim", TimCtrl.dodaj)
 
-timRoutes.post("/tim/slika/:timID", upload, TimCtrl.uploadSliku)
+timRoutes.post("/tim/slika/:timID", upload.single("timSlika"), TimCtrl.uploadSliku)
 
 timRoutes.patch("/tim/:timID", TimCtrl.izmjeni)
 

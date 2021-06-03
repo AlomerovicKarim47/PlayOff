@@ -26,6 +26,11 @@ class MojiDogadjaji extends Component {
         this.setState({dogadjaji:zakazani})
     }
 
+    async componentDidUpdate(prev){
+        if (this.props.location != prev.location && this.props.location.pathname === "/home/organizacija/mojiDogadjaji")
+            await this.componentDidMount()
+    }
+
     render() {
         return (
             <div>
@@ -35,12 +40,31 @@ class MojiDogadjaji extends Component {
                         return(
                         <Link key = {m.id} to = {`/home/organizacija/mojiDogadjaji/dogadjaj/${m.id}`} style = {{textDecoration:'none', color:'black'}} 
                         onClick = {() => this.setState({odabraniDogadjaj:m})}>
-                            <div class = {m.tip===1?"card bg-light":"card" } style = {{margin:'5px', cursor:'pointer', background:"#ccffcc"}}>
-                                {m.tip === 2?m.prviTim.ime + " - " + m.drugiTim.ime:null}<br hidden={m.tip !== 2}/>
+                            <div class = {m.tip===1?"card bg-light":"card" } style = {{margin:'5px', cursor:'pointer', background:"#ccffcc", textAlign:'center'}} hidden = {m.tip !== 1}>
                                 {sportovi.find(s => s.id === m.sport).naziv}
                                 <br/>
                                 {m.vrijemeOdrzavanja}<br/>
                                 {m.mjesto}
+                            </div>
+                            <div class = {m.tip===1?"card bg-light":"card" } style = {{margin:'5px', cursor:'pointer', background:"#ccffcc"}} hidden = {m.tip !== 2}>
+                                <div class = "row">
+                                    
+                                    {m.tip===2?<div class = "col-md-auto">
+                                        <img src={`data:${"image/png"};base64,${Buffer.from(m.prviTim.slika.data).toString('base64')}`} 
+                                                    class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
+                                    </div>:null}
+                                    <div class = "col" style = {{textAlign:'center'}}>
+                                        {m.tip === 2?m.prviTim.ime + " - " + m.drugiTim.ime:null}<br hidden={m.tip !== 2}/>
+                                        {sportovi.find(s => s.id === m.sport).naziv}
+                                        <br/>
+                                        {m.vrijemeOdrzavanja}<br/>
+                                        {m.mjesto}
+                                    </div>
+                                    {m.tip===2?<div class = "col-md-auto">
+                                        <img src={`data:${"image/png"};base64,${Buffer.from(m.drugiTim.slika.data).toString('base64')}`} 
+                                                    class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
+                                    </div>:null}
+                                </div>
                             </div>
                         </Link>)
                     })}   

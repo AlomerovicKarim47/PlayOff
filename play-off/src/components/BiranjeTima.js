@@ -81,10 +81,12 @@ class BiranjeTima extends Component {
                                         value = {this.state.selektovaniUcesnik}
                                         options = {this.state.ucesnikOpcije}
                                         onInputChange = {(val) => {
+                                            this.props.onChange()
                                             this.setState({ucesnikSearch:val})
                                             this.traziKorisnike(val)
                                         }}
                                         onChange = {(val) => {
+                                            if (!val) return
                                             if (this.props.tim === 1)
                                                 OrganizujStore.tim1 = val.value.id
                                             else if (this.props.tim ===2)

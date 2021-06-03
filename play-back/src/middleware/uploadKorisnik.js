@@ -1,8 +1,8 @@
 import multer, { memoryStorage } from 'multer'
 
 var storage = multer.memoryStorage()
-const upload = multer({
+const uploadKorisnik = multer({
     storage:storage,
 })
 
-export default upload
+export default uploadKorisnik

@@ -45,28 +45,38 @@ export default class ZahtjeviZaMec extends Component {
                     if (z.sport !== 0)
                     return (
                         <div key= {z.id} class = "card bg-light" style = {{margin:'5px'}}>
-                            {sportovi.find(s=>s.id===z.sport).naziv}<br/>
-                            {z.prviTim.ime + " - " + z.drugiTim.ime}<br/>
-                            {z.mjesto}<br/>
-                            {z.vrijemeOdrzavanja}
-                            <div style = {{position:'absolute', width:'100%', paddingRight:'30px', paddingTop:'10px'}} >
-                                <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden={z.status!=null}>
-                                    <button class = "btn btn-outline-danger" style = {{marginRight:'10px'}}
-                                        onClick = {() => this.odbijZahtjev(z)}>
-                                        <XIcon/>Odbij
-                                    </button>
-                                    <button class = "btn btn-outline-success" 
-                                        onClick = {() => this.prihvatiZahtjev(z)}>
-                                            <CheckIcon/>Prihvati
-                                    </button>
+                            <div class = "row">
+                                <div class = "col-md-auto">
+                                    <img src={`data:${"image/png"};base64,${Buffer.from(z.prviTim.slika.data).toString('base64')}`} 
+                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
                                 </div>
-                                <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden = {z.status !== true}>
-                                    <CheckIcon/>Prihvaćeno
+                                <div class = "col">
+                                    {sportovi.find(s=>s.id===z.sport).naziv}<br/>
+                                    {z.prviTim.ime + " - " + z.drugiTim.ime}<br/>
+                                    {z.mjesto}<br/>
+                                    {z.vrijemeOdrzavanja}
                                 </div>
-                                <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden = {z.status !== false}>
-                                    <XIcon/>Odbijeno
+                                <div class = "col">
+                                    <div style = {{width:'100%', paddingRight:'30px', paddingTop:'10px'}} >
+                                        <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden={z.status!=null}>
+                                            <button class = "btn btn-outline-danger" style = {{marginRight:'10px'}}
+                                                onClick = {() => this.odbijZahtjev(z)}>
+                                                <XIcon/>Odbij
+                                            </button>
+                                            <button class = "btn btn-outline-success" 
+                                                onClick = {() => this.prihvatiZahtjev(z)}>
+                                                    <CheckIcon/>Prihvati
+                                            </button>
+                                        </div>
+                                        <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden = {z.status !== true}>
+                                            <CheckIcon/>Prihvaćeno
+                                        </div>
+                                        <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden = {z.status !== false}>
+                                            <XIcon/>Odbijeno
+                                        </div>
+                                        
+                                    </div>
                                 </div>
-                                
                             </div>
                             
                         </div>

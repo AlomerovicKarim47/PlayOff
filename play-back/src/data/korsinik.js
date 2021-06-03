@@ -15,6 +15,16 @@ class KorisnikData{
         }
     }
 
+    static async uploadSliku(id, slika){
+        try {
+            let korisnik = await baza.Korisnik.findOne({where:{id}})
+            korisnik.slika = slika
+            await korisnik.save()
+        } catch (error) {
+            throw error
+        }
+    }
+
     static async traziPoUsername(username, gledajCijelo){
         try {
             let data = await baza.Korisnik.findAll({where:{

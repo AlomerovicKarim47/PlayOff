@@ -5,6 +5,7 @@ import {Route, Link, Switch, withRouter} from 'react-router-dom'
 import Organizacija from '../pages/Organizacija'
 import Timovi from '../pages/Timovi'
 import Zahtjevi from '../pages/Zahtjevi'
+import Profil from '../pages/Profil'
 
 import {observer} from 'mobx-react'
 import UserStore from '../stores/UserStore'
@@ -22,6 +23,7 @@ class HomePage extends Component {
         let organizacija = '/home/organizacija'
         let timovi = '/home/timovi'
         let zahtjevi = '/home/zahtjevi'
+        let profil = '/home/profil'
         return (
             <div>
 
@@ -30,7 +32,7 @@ class HomePage extends Component {
                         <div class = "col" style = {{padding:"0px"}}>
                             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                                 <ul class="navbar-nav mr-auto">
-                                    <div class = "col" style = {{fontSize:"30px", fontWeight:"bold", display:"inline-block", color:"white"}}>
+                                    <div class = "col" style = {{fontSize:"30px", fontWeight:"bold", display:"inline-block", color:"white", width:'220px', cursor:'default'}}>
                                         ⚽PLAY OFF🏀
                                     </div>
                                     <li class="nav-item">
@@ -61,7 +63,9 @@ class HomePage extends Component {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">Moj Profil</Dropdown.Item>
+                                    <Dropdown.Item>
+                                        <Link to = {`${profil}/${UserStore.user.id}`} style = {{textDecoration:'none', color:'black', width:'100%'}}>Moj Profil</Link>
+                                    </Dropdown.Item>
                                     <Dropdown.Item onClick={()=>this.logOut()}>Odjava</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -74,6 +78,7 @@ class HomePage extends Component {
                     <Route path = {organizacija} component = {Organizacija}/>
                     <Route path = {timovi} component = {Timovi}/>
                     <Route path = {zahtjevi} component = {Zahtjevi}/>
+                    <Route path = {profil+"/:id"} component = {Profil}/>
                 </Switch>
 
             </div>

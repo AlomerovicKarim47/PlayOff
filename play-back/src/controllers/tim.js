@@ -23,7 +23,6 @@ const dodaj = async (req, res, next) => {
 const uploadSliku = async (req, res, next) => {
     try {
         let timID = req.params.timID
-        
         await TimData.uploadSliku(timID,req.file.buffer)
     } catch (error) {
         res.statusCode = 500

@@ -22,6 +22,17 @@ const registracija = async (req, res, next) => {
     sendResponse(req, res)
 }
 
+const uploadSliku = async (req, res, next) => {
+    try {
+        let korisnikID = req.params.korisnikID
+        await KorisnikData.uploadSliku(korisnikID, req.file.buffer)
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: "+ error.message
+    }
+    sendResponse(req, res)
+}
+
 const login = async (req, res, next) => {
     let creds = req.body
     try {
@@ -102,7 +113,8 @@ const KorisnikCtrl = {
     login,
     traziPoId,
     izmjeni,
-    traziPoUsername
+    traziPoUsername,
+    uploadSliku
 }
 
 export default KorisnikCtrl

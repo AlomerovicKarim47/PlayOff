@@ -26,11 +26,19 @@ export default class MojiTimovi extends Component {
                             <Link key = {m.id} to = {`/home/timovi/mojiTimovi/tim/${m.id}`} style = {{textDecoration:'none', color:'black'}}
                                 onClick = {() => this.setState({odabraniTim: m})}>
                                 <div  class = "card bg-light" style = {{margin:'5px', cursor:'pointer'}}>
-                                    {m.ime}
-                                    <br/>
-                                    {  
-                                        sportovi.find(s => s.id === m.sport).naziv
-                                    }<br/>
+                                    <div class = "row">
+                                    <div class = "col-md-auto">
+                                        <img src={`data:${"image/png"};base64,${Buffer.from(m.slika.data).toString('base64')}`} 
+                                            class="rounded mx-auto d-block img-thumbnail" style = {{width:'80px', height:'80px', float:'left'}}/>
+                                        </div>
+                                        <div class = "col">
+                                            {m.ime}
+                                            <br/>
+                                            {  
+                                                sportovi.find(s => s.id === m.sport).naziv
+                                            }<br/>
+                                        </div>
+                                    </div>
                                 </div>
                             </Link>)
                     })}

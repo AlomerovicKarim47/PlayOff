@@ -51,6 +51,11 @@ export default (sequelize) => {
             type: Sequelize.INTEGER,
             unique: false,
             allowNull: true
+        },
+        slika:{
+            type: Sequelize.BLOB,
+            unique:false,
+            allowNull: true
         }
     })
 }
