@@ -58,7 +58,7 @@ class RegisterPage extends Component {
                 grad: this.state.grad, spol: this.state.spol
             })
             if (res.code === 201) this.props.history.push("/")
-            else this.setState({ invalid: true })
+            else{ this.setState({ invalid: true }); console.log(res)}
         } catch (error) {
             if (error.name === "ValidationError") {
                 let errors = {}
