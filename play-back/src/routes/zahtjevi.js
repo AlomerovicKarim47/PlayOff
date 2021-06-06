@@ -25,4 +25,10 @@ zahtjeviRoutes.get("/zahtjevi/mecKorisnika/:korisnikID", ZahtjeviCtrl.dobaviKori
 
 zahtjeviRoutes.patch("/zahtjevi/mec/", ZahtjeviCtrl.azurirajZahtjevZaMec)
 
+zahtjeviRoutes.post('/zahtjevi/pridruzivanje', ZahtjeviCtrl.posaljiZahtjevPridruzivanje)
+
+zahtjeviRoutes.get('/zahtjevi/pridruzivanje', ZahtjeviCtrl.dobaviZahtjeveZaPridruzivanje)
+
+zahtjeviRoutes.patch('/zahtjevi/pridruzivanje/:zahtjevID', ZahtjeviCtrl.azurirajZahtjevZaPridruzivanje)
+
 export default zahtjeviRoutes

@@ -12,6 +12,7 @@ import UcesniciUMecuBezTimova from '../models/ucesniciUMecuBezTimova'
 import ZahtjevMec from '../models/zahtjevMec'
 import Mec from '../models/mec'
 import MecBezTimova from '../models/mecBezTimova'
+import ZahtjevPridruzivanje from '../models/zahtjevPridruzivanje'
 
 const models = {
     Korisnik,
@@ -27,7 +28,8 @@ const models = {
     UcesniciUMecuBezTimova,
     ZahtjevMec,
     Mec,
-    MecBezTimova
+    MecBezTimova,
+    ZahtjevPridruzivanje
 }
 
 export default models

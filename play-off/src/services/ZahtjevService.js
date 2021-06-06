@@ -104,6 +104,36 @@ class ZahtjevService{
             return error.response.data
         }
     }
+
+    static async posaljiZahtjevPridruzivanje(data){
+        try {
+            let res = await axios.post(`${config.BACKEND_URL}/zahtjevi/pridruzivanje`, data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
+    static async dobaviZahtjevePridruzivanje(korisnik, mec){
+        let params = ""
+        if (korisnik) params = "?korisnik="+korisnik
+        else if (mec) params = "?mec="+mec
+        try {
+            let res = await axios.get(`${config.BACKEND_URL}/zahtjevi/pridruzivanje${params}`)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
+    static async azurirajZahtjevPridruzivanje(zahtjevID, data, posiljaoc, mec){
+        try {
+            let res = await axios.patch(`${config.BACKEND_URL}/zahtjevi/pridruzivanje/${zahtjevID}?posiljaoc=${posiljaoc}&mec=${mec}`, data)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
 }
 
 export default ZahtjevService

@@ -135,6 +135,40 @@ class ZahtjeviData{
             throw error
         }
     }
+
+    static async posaljiZahtjevPridruzivanje(zahtjev){
+        try {
+            await baza.ZahtjevPridruzivanje.create(zahtjev)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async dobaviZahtjeveZaPridruzivanje(korisnik, mec){
+        try {
+            let rez = await baza.ZahtjevPridruzivanje.findAll(
+                {
+                    where:korisnik?{primaoc: korisnik}:{mec:mec},
+                    include:[{
+                        model:baza.Korisnik,
+                        as:"korisnikPosiljaoc"
+                    }]
+                })
+            return rez.map(r => r.dataValues)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async azurirajZahtjevZaPridruzivanje(zahtjev, data){
+        try {
+            let rez = await baza.ZahtjevPridruzivanje.findOne({where:{id:zahtjev}})
+            Object.keys(data).map(p => rez[p] = data[p])
+            await rez.save()
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 export default ZahtjeviData

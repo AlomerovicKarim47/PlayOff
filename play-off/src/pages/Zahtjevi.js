@@ -3,12 +3,14 @@ import {Link, Switch, Route} from 'react-router-dom'
 import ZahtjeviZaMecBezTimova from './ZahtjeviZaMecBezTimova'
 import ZahtjeviZaTim from './ZahtjeviZaTim'
 import ZahtjeviZaMec from './ZahtjeviZaMec'
+import ZahtjeviZaPridruzivanje from './ZahtjeviZaPridruzivanje'
 
 export default class Zahtjevi extends Component {
     render() {
         let bezTimova = "/home/zahtjevi/mecBezTimova"
         let zahtjeviZaTim = "/home/zahtjevi/tim"
         let zahtjeviZaMec = "/home/zahtjevi/mec"
+        let zahtjeviZaPridruzivanje = "/home/zahtjevi/pridruzivanje"
         return (
             
             <div>
@@ -26,6 +28,9 @@ export default class Zahtjevi extends Component {
                                     <li class="nav-item">
                                         <Link class="nav-link text-dark" to = {`${zahtjeviZaTim}`} >Zahtjevi za tim</Link>
                                     </li>
+                                    <li class="nav-item">
+                                        <Link class="nav-link text-dark" to = {`${zahtjeviZaPridruzivanje}`} >Zahtjevi za pridruzivanje</Link>
+                                    </li>
                                 </ul>                 
                             </nav>
                         </div>
@@ -34,6 +39,7 @@ export default class Zahtjevi extends Component {
                                 <Route path = {bezTimova} component = {ZahtjeviZaMecBezTimova}/>
                                 <Route path = {zahtjeviZaTim} component = {ZahtjeviZaTim}/>
                                 <Route path = {zahtjeviZaMec} component = {ZahtjeviZaMec}/>
+                                <Route path = {zahtjeviZaPridruzivanje} component = {ZahtjeviZaPridruzivanje}/>
                             </Switch>
                         </div>
                     </div>

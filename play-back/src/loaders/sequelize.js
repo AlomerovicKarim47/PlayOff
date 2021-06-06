@@ -28,6 +28,7 @@ const loadSequelize = async() => {
         db.ZahtjevMec = models.ZahtjevMec(sequelize)
         db.Mec = models.Mec(sequelize)
         db.MecBezTimova = models.MecBezTimova(sequelize)
+        db.ZahtjevPridruzivanje = models.ZahtjevPridruzivanje(sequelize)
 
         db.ZahtjevMecBezTimova.belongsTo(db.Korisnik, {foreignKey: 'primaoc'})
         db.ZahtjevTim.belongsTo(db.Korisnik, {foreignKey:'primaoc'})
@@ -36,6 +37,7 @@ const loadSequelize = async() => {
         db.ZahtjevMec.belongsTo(db.Tim, {foreignKey: 'timPrimaoc', as: 'drugiTim'})
         db.Mec.belongsTo(db.Tim, {foreignKey: "tim1", as: "prviTim"})
         db.Mec.belongsTo(db.Tim, {foreignKey: "tim2", as: "drugiTim"})
+        db.ZahtjevPridruzivanje.belongsTo(db.Korisnik, {foreignKey:"posiljaoc", as:"korisnikPosiljaoc"})
         
         await sequelize.authenticate()
         await sequelize.sync()

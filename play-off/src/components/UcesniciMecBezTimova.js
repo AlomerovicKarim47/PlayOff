@@ -15,7 +15,8 @@ class UcesniciMecBezTimova extends Component {
         resetOrganizujStore()
         if (this.props.editing){
             let res = await ZahtjevService.dobaviZahtjeveZaMecBezTimova(null, this.props.did)
-            OrganizujStore.ucesnici = JSON.parse(res.data)
+            let res2 = await ZahtjevService.dobaviZahtjevePridruzivanje(null, this.props.did)
+            OrganizujStore.ucesnici = [...JSON.parse(res.data), ...res2.data]
         }
     }
 
@@ -114,7 +115,8 @@ class UcesniciMecBezTimova extends Component {
                             <div key = {u.id} class = "card bg-light" style = {{margin:'2px'}}>
                                 <div class = "row">
                                     <div class = "col">Slika ovdje</div>
-                                    <div class = "col">{u.Korisnik.ime + " " + u.Korisnik.prezime + " (" + u.Korisnik.username + ")"}</div>
+                                    {u.Korisnik?<div class = "col">{u.Korisnik.ime + " " + u.Korisnik.prezime + " (" + u.Korisnik.username + ")"}</div>
+                                    :<div class = "col">{u.korisnikPosiljaoc.ime + " " + u.korisnikPosiljaoc.prezime + " (" + u.korisnikPosiljaoc.username + ")"}</div>}
                                     <div class = "col">Accepted/Rejected</div>
                                 </div>
                             </div>
