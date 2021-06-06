@@ -9,12 +9,11 @@ export default class ZahtjeviZaPridruzivanje extends Component {
     state = {
         zahtjevi : []
     }
-
+ 
     async componentDidMount(){
         try {
-            let rez = await ZahtjevService.dobaviZahtjeveZaMecBezTimova(UserStore.user.id, null, false)
-            this.setState({zahtjevi: JSON.parse(rez.data)})
-
+            let res = await ZahtjevService.dobaviZahtjevePridruzivanje(UserStore.user.id)
+            this.setState({zahtjevi: res.data})
         } catch (error) {
             throw error
         }
@@ -22,8 +21,19 @@ export default class ZahtjeviZaPridruzivanje extends Component {
 
     prihvatiZahtjev = async (zahtjev) => {
         try {
-            let res = await ZahtjevService.prihvatiZahtjevZaMecBezTimova(zahtjev.id, zahtjev.primaoc, zahtjev.mec)
-            console.log(res)
+            await ZahtjevService.azurirajZahtjevPridruzivanje(zahtjev.id, {status:true}, zahtjev.posiljaoc, zahtjev.mec)
+            let res2 = await ZahtjevService.dobaviZahtjevePridruzivanje(UserStore.user.id)
+            this.setState({zahtjevi:res2.data})
+        } catch (error) {
+            throw error
+        }
+    }
+
+    odbijZahtjev = async (zahtjev) => {
+        try {
+            await ZahtjevService.azurirajZahtjevPridruzivanje(zahtjev.id, {status:false}, zahtjev.posiljaoc, zahtjev.mec)
+            let res2 = await ZahtjevService.dobaviZahtjevePridruzivanje(UserStore.user.id)
+            this.setState({zahtjevi:res2.data})
         } catch (error) {
             throw error
         }

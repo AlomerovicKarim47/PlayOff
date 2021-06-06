@@ -36,6 +36,7 @@ class Zakazano extends Component {
                                 </div>
                                 <div class = "col" style = {{textAlign:'center'}}>
                                     {m.prviTim.ime + " - " + m.drugiTim.ime}<br/>
+                                    {m.zavrsen?m.rezTim1 + " - " + m.rezTim2:null}<br hidden = {m.zavrsen!==true}/>
                                     {sportovi.find(s => s.id === m.sport).naziv}<br/>
                                     {m.vrijemeOdrzavanja}<br/>
                                     {m.mjesto}

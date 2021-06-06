@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import OsnivanjeStore from '../stores/OsnivanjeStore'
 import Select from 'react-select'
-import {PlusCircleIcon} from '@primer/octicons-react'
+import {PlusCircleIcon, XIcon, CheckIcon, ClockIcon} from '@primer/octicons-react'
 import {Collapse} from 'react-bootstrap'
 import {observer} from 'mobx-react'
 import KorisnikService from '../services/KorisnikService'
@@ -111,11 +111,20 @@ class ClanoviTima extends Component {
                     {
                     OsnivanjeStore.ucesnici.map((u) => {
                         return (
-                            <div class = "card bg-light" style = {{margin:'2px'}}>
+                            <div class = "card bg-light" style = {{margin:'2px', textAlign:'center'}}>
                                 <div class = "row">
-                                    <div class = "col">Slika ovdje</div>
+                                    <div class = "col-md-auto">
+                                        {u.Korisnik.slika?<img src={`data:${"image/png"};base64,${Buffer.from(u.Korisnik.slika.data).toString('base64')}`} 
+                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'50px', height:'50px', float:'left'}}/>:null}
+                                    </div>
                                     <div class = "col">{u.Korisnik.ime + " " + u.Korisnik.prezime + " (" + u.Korisnik.username + ")"}</div>
-                                    <div class = "col">Accepted/Rejected</div>
+                                    <div class = "col-md-auto">
+                                    {u.status===null?
+                                        <div><ClockIcon/>Ceka se</div>:
+                                            u.status===false?
+                                        <div><XIcon/>Odbio</div>:
+                                        <div><CheckIcon/>Prihvatio</div>}
+                                    </div>
                                 </div>
                             </div>
                         )

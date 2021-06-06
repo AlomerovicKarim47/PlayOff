@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
 
 export default (sequelize)=>{
-    return sequelize.define('ZahtjevMecBezTimova',{
+    return sequelize.define('ZahtjevPridruzivanje',{
         primaoc:{
             type:Sequelize.INTEGER,
             unique:false,

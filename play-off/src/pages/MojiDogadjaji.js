@@ -55,6 +55,7 @@ class MojiDogadjaji extends Component {
                                     </div>:null}
                                     <div class = "col" style = {{textAlign:'center'}}>
                                         {m.tip === 2?m.prviTim.ime + " - " + m.drugiTim.ime:null}<br hidden={m.tip !== 2}/>
+                                        {m.zavrsen?m.rezTim1 + " - " + m.rezTim2:null}<br hidden = {m.zavrsen!==true}/>
                                         {sportovi.find(s => s.id === m.sport).naziv}
                                         <br/>
                                         {m.vrijemeOdrzavanja}<br/>

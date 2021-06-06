@@ -126,11 +126,45 @@ class ZahtjeviData{
         }
     }
 
-    static async azurirajZahtjevZaTim(data){
+    static async azurirajZahtjevZaTim(id, data){
         try {
-            let zahtjev = await baza.ZahtjevMec.findOne({where:{id:data.id}})
+            let zahtjev = await baza.ZahtjevTim.findOne({where:{id:id}})
             Object.keys(data).map(p => zahtjev[p] = data[p])
             await zahtjev.save()
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async posaljiZahtjevPridruzivanje(zahtjev){
+        try {
+            await baza.ZahtjevPridruzivanje.create(zahtjev)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async dobaviZahtjeveZaPridruzivanje(korisnik, mec){
+        try {
+            let rez = await baza.ZahtjevPridruzivanje.findAll(
+                {
+                    where:korisnik?{primaoc: korisnik}:{mec:mec},
+                    include:[{
+                        model:baza.Korisnik,
+                        as:"korisnikPosiljaoc"
+                    }]
+                })
+            return rez.map(r => r.dataValues)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async azurirajZahtjevZaPridruzivanje(zahtjev, data){
+        try {
+            let rez = await baza.ZahtjevPridruzivanje.findOne({where:{id:zahtjev}})
+            Object.keys(data).map(p => rez[p] = data[p])
+            await rez.save()
         } catch (error) {
             throw error
         }

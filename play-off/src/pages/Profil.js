@@ -60,6 +60,7 @@ export default class Profil extends Component {
                         <div class = "row">
                             <div style = {{width:'300px', margin:'0 auto'}}>
                                 <input type = "file" class = "form-control" name = "korisnikSlika" style = {{width:'100%'}} accept = "image/*"
+                                hidden = {this.state.user.id !== UserStore.user.id}
                                     onChange = {(e) => {
                                             this.setState({
                                                 changed:true,
@@ -103,6 +104,7 @@ export default class Profil extends Component {
                                 </div>
                                 <div class = "col" style = {{textAlign:'center'}}>
                                     {m.prviTim.ime + " - " + m.drugiTim.ime}<br/>
+                                    {m.zavrsen?m.rezTim1 + " - " + m.rezTim2:null}<br hidden = {m.zavrsen!==true}/>
                                     {sportovi.find(s => s.id === m.sport).naziv}<br/>
                                     {m.vrijemeOdrzavanja}<br/>
                                     {m.mjesto}

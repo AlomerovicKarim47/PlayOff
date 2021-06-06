@@ -187,6 +187,47 @@ const azurirajZahtjevZaMec = async (req, res, next) => {
     sendResponse(req, res)
 }
 
+const posaljiZahtjevPridruzivanje = async (req, res, next) => {
+    try {
+        let zahtjev = {
+            ...req.body,
+            vidjenost: false
+        }
+        await ZahtjeviData.posaljiZahtjevPridruzivanje(zahtjev)
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
+const dobaviZahtjeveZaPridruzivanje = async (req, res, next) => {
+    try {
+        let zahtjevi = await ZahtjeviData.dobaviZahtjeveZaPridruzivanje(req.query.korisnik, req.query.mec)
+        res.data = zahtjevi
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
+const azurirajZahtjevZaPridruzivanje = async (req, res, next) => {
+    try {
+        let data = req.body
+        let id = req.params.zahtjevID
+        let posiljaoc = req.query.posiljaoc
+        let mec = req.query.mec
+        await ZahtjeviData.azurirajZahtjevZaPridruzivanje(id, data)
+        if (data.status === true){
+            await MeceviData.dodajKorisnikaTermin({korisnik: posiljaoc, mec: mec})
+        }
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
 
 const ZahtjeviCtrl = {
 	posaljiZahtjevTim,
@@ -199,7 +240,10 @@ const ZahtjeviCtrl = {
     dobaviKorisnikoveZahtjeveZaTim,
     azurirajZahtjevZaTim,
     dobaviKorisnikoveZahtjeveZaMec,
-    azurirajZahtjevZaMec
+    azurirajZahtjevZaMec,
+    posaljiZahtjevPridruzivanje,
+    dobaviZahtjeveZaPridruzivanje,
+    azurirajZahtjevZaPridruzivanje
 }
 
 export default ZahtjeviCtrl
