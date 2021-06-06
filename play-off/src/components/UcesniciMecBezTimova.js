@@ -8,6 +8,7 @@ import KorisnikService from '../services/KorisnikService'
 import ZahtjevService from '../services/ZahtjevService'
 import UserStore from '../stores/UserStore'
 import {resetOrganizujStore} from '../utility/resetStore'
+import {CheckIcon, XIcon, ClockIcon} from '@primer/octicons-react'
 
 class UcesniciMecBezTimova extends Component {
 
@@ -38,7 +39,7 @@ class UcesniciMecBezTimova extends Component {
             primaoc: OrganizujStore.primaocUcesnik.value.id,
             mjesto: OrganizujStore.mjesto,
             vrijemeOdrzavanja: OrganizujStore.datum + " " + OrganizujStore.vrijeme,
-            sport: OrganizujStore.sport,
+            sport: this.props.dogadjaj?this.props.dogadjaj.sport:OrganizujStore.sport,
             mec: this.props.did?this.props.did:OrganizujStore.mec
         }
         try {
@@ -46,7 +47,8 @@ class UcesniciMecBezTimova extends Component {
             OrganizujStore.primaocUcesnik = null
 
             let res = await ZahtjevService.dobaviZahtjeveZaMecBezTimova(null, this.props.did?this.props.did:OrganizujStore.mec)
-            OrganizujStore.ucesnici = JSON.parse(res.data)
+            let res2 = await ZahtjevService.dobaviZahtjevePridruzivanje(null, this.props.did?this.props.did:OrganizujStore.mec)
+            OrganizujStore.ucesnici = [...JSON.parse(res.data), ...res2.data]
         } catch (error) {
             throw error
         }
@@ -113,11 +115,29 @@ class UcesniciMecBezTimova extends Component {
                     OrganizujStore.ucesnici.map((u) => {
                         return (
                             <div key = {u.id} class = "card bg-light" style = {{margin:'2px'}}>
-                                <div class = "row">
-                                    <div class = "col">Slika ovdje</div>
-                                    {u.Korisnik?<div class = "col">{u.Korisnik.ime + " " + u.Korisnik.prezime + " (" + u.Korisnik.username + ")"}</div>
-                                    :<div class = "col">{u.korisnikPosiljaoc.ime + " " + u.korisnikPosiljaoc.prezime + " (" + u.korisnikPosiljaoc.username + ")"}</div>}
-                                    <div class = "col">Accepted/Rejected</div>
+                                <div class = "row" style = {{textAlign:'center'}}>
+                                    {u.Korisnik?
+                                    <div class = "col-md-auto">
+                                        {u.Korisnik.slika?
+                                            <img src={`data:${"image/png"};base64,${Buffer.from(u.Korisnik.slika.data).toString('base64')}`} 
+                                            class="rounded mx-auto d-block img-thumbnail" style = {{width:'50px', height:'50px', float:'left'}}/>:null}
+                                    </div>:
+                                    <div class = "col-md-auto">
+                                    {u.korisnikPosiljaoc.slika?
+                                        <img src={`data:${"image/png"};base64,${Buffer.from(u.korisnikPosiljaoc.slika.data).toString('base64')}`} 
+                                        class="rounded mx-auto d-block img-thumbnail" style = {{width:'50px', height:'50px', float:'left'}}/>:null}
+                                </div>}
+                                    {u.Korisnik?
+                                        <div class = "col">{u.Korisnik.ime + " " + u.Korisnik.prezime + " (" + u.Korisnik.username + ")"}</div>
+                                        :<div class = "col">{u.korisnikPosiljaoc.ime + " " + u.korisnikPosiljaoc.prezime + " (" + u.korisnikPosiljaoc.username + ")"}</div>}
+                                    
+                                    <div class = "col-md-auto">
+                                        {u.status===null?
+                                            <div><ClockIcon/>Ceka se</div>:
+                                                u.status===false?
+                                                <div><XIcon/>Ne dolazi</div>:
+                                                <div><CheckIcon/>Dolazi</div>}
+                                    </div>
                                 </div>
                             </div>
                         )

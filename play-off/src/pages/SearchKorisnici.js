@@ -37,8 +37,8 @@ class SearchKorisnici extends Component {
                         <div key= {z.id} class = "card bg-light" style = {{margin:'5px', cursor:'pointer'}} onClick = {() => this.props.history.push("/home/profil/" + z.id)}>
                             <div class = "row">
                                 <div class = "col-md-auto">
-                                    <img src={`data:${"image/png"};base64,${Buffer.from(z.slika.data).toString('base64')}`} 
-                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
+                                    {z.slika?<img src={`data:${"image/png"};base64,${Buffer.from(z.slika.data).toString('base64')}`} 
+                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>:null}      
                                 </div>
                                 <div class = "col">
                                     {z.ime + " " + z.prezime + " (" + z.username +")"}<br/>

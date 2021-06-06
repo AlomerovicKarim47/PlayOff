@@ -23,7 +23,8 @@ export default class ZahtjeviZaTim extends Component {
                 tim:zahtjev.tim,
                 primaoc:zahtjev.primaoc
             }
-            await ZahtjevService.azurirajZahtjevZaTim(data)
+            let r = await ZahtjevService.azurirajZahtjevZaTim(data)
+            console.log(r)
             let res = await ZahtjevService.dobaviKorisnikoveZahtjeveZaTim(UserStore.user.id)
             this.setState({zahtjevi:res.data})
         } catch (error) {

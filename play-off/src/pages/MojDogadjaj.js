@@ -94,7 +94,7 @@ class MojDogadjaj extends Component {
                         </div>
                     </div>
 
-                    {this.props.dogadjaj.tip === 1?<UcesniciMecBezTimova editing = {true} did = {this.props.did}/>:null}
+                    {this.props.dogadjaj.tip === 1?<UcesniciMecBezTimova editing = {true} did = {this.props.did} dogadjaj = {this.props.dogadjaj}/>:null}
 
                     {this.props.dogadjaj.tip === 2?
                         <div class = "container-fluid">

@@ -126,9 +126,9 @@ class ZahtjeviData{
         }
     }
 
-    static async azurirajZahtjevZaTim(data){
+    static async azurirajZahtjevZaTim(id, data){
         try {
-            let zahtjev = await baza.ZahtjevMec.findOne({where:{id:data.id}})
+            let zahtjev = await baza.ZahtjevTim.findOne({where:{id:id}})
             Object.keys(data).map(p => zahtjev[p] = data[p])
             await zahtjev.save()
         } catch (error) {
