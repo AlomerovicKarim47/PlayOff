@@ -153,6 +153,19 @@ class MeceviData {
             throw error
         }
     }
+
+    static async pretraziTerminePoMjestu(query){
+        try {
+            let rez = await baza.MecBezTimova.findAll({where:{
+                mjesto: {
+                    [Op.like]: `%${query}%`
+                }
+            }})
+            return rez.map(r => r.dataValues)
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 export default MeceviData

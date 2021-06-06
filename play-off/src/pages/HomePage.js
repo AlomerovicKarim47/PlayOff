@@ -1,22 +1,35 @@
 import React, { Component } from 'react'
 
 import {Route, Link, Switch, withRouter} from 'react-router-dom'
-
 import Organizacija from '../pages/Organizacija'
 import Timovi from '../pages/Timovi'
 import Zahtjevi from '../pages/Zahtjevi'
 import Profil from '../pages/Profil'
-
+import SearchResults from './SearchResults'
 import {observer} from 'mobx-react'
 import UserStore from '../stores/UserStore'
 import {Dropdown} from 'react-bootstrap'
 
 class HomePage extends Component {
     
+    state = {
+        query : "",
+        refresh: false
+    }
+
     logOut = () => {
         this.props.history.push("/")
         UserStore.token = null
         UserStore.user = null
+    }
+
+    search = async () => {
+        this.setState({refresh:true})
+        this.props.history.push("/home/search/korisnici")
+    }
+
+    resetRefresh = () => {
+        this.setState({refresh:false})
     }
 
     render() {
@@ -24,6 +37,7 @@ class HomePage extends Component {
         let timovi = '/home/timovi'
         let zahtjevi = '/home/zahtjevi'
         let profil = '/home/profil'
+        let search = '/home/search'
         return (
             <div>
 
@@ -49,9 +63,9 @@ class HomePage extends Component {
                         </div>
                         <div class = "col bg-dark" style = {{paddingTop:"5px"}}>
                             <div class="input-group">
-                                <input type = "text" class = "form-control" placeholder="Traži"/>
+                                <input type = "text" class = "form-control" placeholder="Traži" onChange = {(e) => this.setState({query:e.target.value})}/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-success" type="button">Traži</button>
+                                    <button class="btn btn-success" type="button" onClick = {() => this.search()}>Traži</button>
                                 </div>
                             </div>
                         </div>
@@ -79,6 +93,9 @@ class HomePage extends Component {
                     <Route path = {timovi} component = {Timovi}/>
                     <Route path = {zahtjevi} component = {Zahtjevi}/>
                     <Route path = {profil+"/:id"} component = {Profil}/>
+                    <Route path = {search}>
+                        <SearchResults query = {this.state.query} refresh = {this.state.refresh} resetRefresh = {() => this.resetRefresh()}/>
+                    </Route>
                 </Switch>
 
             </div>

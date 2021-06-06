@@ -211,6 +211,18 @@ const dobaviOrganizovaneTermine = async (req, res, next) => {
     sendResponse(req, res)
 }
 
+const pretraziTerminePoMjestu = async (req, res, next) => {
+    try {
+        let term = req.query.term
+        let termini = await MeceviData.pretraziTerminePoMjestu(term)
+        res.data = termini
+    } catch (error) {
+        res.statusCode = 500
+        res.message = "Greška u serveru: " + error.message
+    }
+    sendResponse(req, res)
+}
+
 const MeceviCtrl = {
     dobaviMecKorisnik,
     dobaviMecTim,
@@ -221,7 +233,8 @@ const MeceviCtrl = {
     zavrsiTermin,
     dodajKorisnikaTermin,
     izbaciKorisnikaTermin,
-    dobaviOrganizovaneTermine
+    dobaviOrganizovaneTermine,
+    pretraziTerminePoMjestu
 }
 
 export default MeceviCtrl

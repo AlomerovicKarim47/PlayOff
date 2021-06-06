@@ -50,6 +50,15 @@ class MecService{
         }
     }
 
+    static async pretraziTerminePoMjestu(query){
+        try {
+            let res = await axios.get(`${config.BACKEND_URL}/mecevi/pretraziTerminePoMjestu?term=${query}`)
+            return res.data
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
     /*static async dodajKorisnikaUTermin(data){
         try {
             let res = await axios.post(`${config.BACKEND_URL}/mecevi/dodajKorisnikaTermin`, data)
