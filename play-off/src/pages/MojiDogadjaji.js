@@ -51,9 +51,9 @@ class MojiDogadjaji extends Component {
                                     
                                     {m.tip===2?<div class = "col-md-auto">
                                         <img src={`data:${"image/png"};base64,${Buffer.from(m.prviTim.slika.data).toString('base64')}`} 
-                                                    class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
+                                                     class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
                                     </div>:null}
-                                    <div class = "col" style = {{textAlign:'center'}}>
+                                     <div class = "col" style = {{textAlign:'center'}}>
                                         {m.tip === 2?m.prviTim.ime + " - " + m.drugiTim.ime:null}<br hidden={m.tip !== 2}/>
                                         {m.zavrsen?m.rezTim1 + " - " + m.rezTim2:null}<br hidden = {m.zavrsen!==true}/>
                                         {sportovi.find(s => s.id === m.sport).naziv}
