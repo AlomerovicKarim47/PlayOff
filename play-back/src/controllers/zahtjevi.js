@@ -167,7 +167,7 @@ const dobaviKorisnikoveZahtjeveZaMec = async (req, res, next) => {
 const azurirajZahtjevZaMec = async (req, res, next) => {
     try {
         let data = req.body
-        await ZahtjeviData.azurirajZahtjevZaTim(data)
+        await ZahtjeviData.azurirajZahtjevZaMec(data.id, data)
         if (data.status === true){
             let mec = {
                 tim1: data.timPosiljaoc,

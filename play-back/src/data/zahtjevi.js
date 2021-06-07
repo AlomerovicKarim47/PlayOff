@@ -169,6 +169,16 @@ class ZahtjeviData{
             throw error
         }
     }
+
+    static async azurirajZahtjevZaMec(zahtjev, data){
+        try {
+            let rez = await baza.ZahtjevMec.findOne({where:{id:zahtjev}})
+            Object.keys(data).map(p=> rez[p] = data[p])
+            await rez.save()
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 export default ZahtjeviData
