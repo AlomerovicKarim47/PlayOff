@@ -2,7 +2,7 @@ import express from 'express'
 import config from './config'
 import loaders from './loaders'
 const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./loaders/swagger_output.json')
+const swaggerFile = require('../swagger_output.json')
 
 const startServer = async () => {
     const app = express()
