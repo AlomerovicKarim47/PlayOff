@@ -1,0 +1,665 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/korisnik/registracija": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/korisnik/slika/{korisnikID}": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/korisnik/login": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/korisnik/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "patch": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/korisnik/username/{username}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cijelo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/mecevi/dobaviKorisnik/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "organizovani",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/mecevi/dobaviTim/{timID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "timID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/mecevi/dodajMec": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/mecevi/zavrsiMec/{mecID}": {
+      "patch": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "mecID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/mecevi/dodajTermin": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/mecevi/dobaviTermine/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/mecevi/zavrsiTermin/{mecID}": {
+      "patch": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "mecID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/mecevi/dodajKorisnikaTermin": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/mecevi/izbaciKorisnikaTermin": {
+      "delete": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "posiljaocID\r": {
+                  "example": "any"
+                },
+                "korisnikID": {
+                  "example": "any"
+                },
+                "mecID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/mecevi/dobaviOrganizovaneTermine/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/mecevi/pretraziTerminePoMjestu": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "term\r",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/poruke/posalji": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/poruke/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/pozicija/preferirane/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/pozicija/postaviKorisnika": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/tim": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "kapitenZaIzbaciti\r",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "term\r",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sport\r",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/tim/slika/{timID}": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "timID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/tim/{timID}": {
+      "patch": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "timID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/tim/dodajIgraca": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tim": {
+                  "example": "any"
+                },
+                "korisnik": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/tim/izbaciIgraca": {
+      "delete": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tim": {
+                  "example": "any"
+                },
+                "korisnik": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/tim/prosli/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/tim/prosli": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/tim/clanovi/{timID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "timID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/tim/osnovani/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "term\r",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sport\r",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/tim": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "patch": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/mec": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/tim/{timID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "timID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/mec/{timID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "timID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/mecBezTimova": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnik\r",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "mec\r",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/mecBezTimova/{zahtjevID}": {
+      "patch": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "zahtjevID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "primaoc\r",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "mec\r",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/timZaKorisnika/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/mecKorisnika/{korisnikID}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnikID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/mec/": {
+      "patch": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/pridruzivanje": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "korisnik",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "mec",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/zahtjevi/pridruzivanje/{zahtjevID}": {
+      "patch": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "zahtjevID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "posiljaoc\r",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "mec\r",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {}
+}

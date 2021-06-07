@@ -1,21 +1,14 @@
-import swaggerJsDoc from 'swagger-jsdoc'
-import swaggerUi from 'swagger-ui-express'
-import config from '../config'
+//import swaggerJsDoc from 'swagger-jsdoc'
+//import swaggerUi from 'swagger-ui-express'
+//import config from '../config'
 
-const loadSwagger = (app) => {
-    const swaggerOptions = {
-        swaggerDefinition:{
-            info:{
-                title:"PlayOff API",
-                description: "API za aplikaciju PlayOff",
-                servers:[`http://localhost:${config.PORT}`]
-            }
-        },
-        apis: ['../routes/korisnik.js']
-    }
 
-    const swaggerDocs = swaggerJsDoc(swaggerOptions)
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
-}
 
-export default loadSwagger
+const swaggerAutogen = require('swagger-autogen')()
+
+const outputFile = './swagger_output.json'
+const endpointsFiles = ['G:/NBPSranje/PlayOff/play-back/src/routes/korisnik.js','G:/NBPSranje/PlayOff/play-back/src/routes/index.js','G:/NBPSranje/PlayOff/play-back/src/routes/mecevi.js','G:/NBPSranje/PlayOff/play-back/src/routes/poruke.js','G:/NBPSranje/PlayOff/play-back/src/routes/pozicije.js','G:/NBPSranje/PlayOff/play-back/src/routes/tim.js','G:/NBPSranje/PlayOff/play-back/src/routes/zahtjevi.js']
+
+swaggerAutogen(outputFile, endpointsFiles)
+
+

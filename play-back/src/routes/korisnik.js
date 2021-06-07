@@ -5,6 +5,7 @@ import swaggerJsDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 
 const korisnikRoutes = Router()
+/*
 /**
  * @swagger
  * /korisnik/registracija:
@@ -14,6 +15,7 @@ const korisnikRoutes = Router()
  *          '201':
  *              description: uspjeh
  */
+ 
 korisnikRoutes.post('/korisnik/registracija', KorisnikCtrl.registracija)
 
 korisnikRoutes.post('/korisnik/slika/:korisnikID', upload.single("korisnikSlika"), KorisnikCtrl.uploadSliku)
