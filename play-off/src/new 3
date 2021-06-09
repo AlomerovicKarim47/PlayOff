@@ -1,0 +1,136 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter.filedialog import askopenfilename
+from tkinter import messagebox
+import tkinter.font as font
+import os
+import io
+
+output_table = input_table_1.copy()[0:0]	
+
+def Unos():
+	global output_table_1
+	global root
+	print("test")
+	bedr = bed.get()
+	bathr = bath.get()
+	sliving = liv.get()
+	slot=lot.get()
+	nfloors = floors.get()
+	vw = view.get()
+	cond = condition.get()
+	gr = grade.get()
+	sabove = above.get()
+	yrb = yrbuilt.get()
+	renage = renovation.get()
+	sbasement = basement.get()
+	unos = {"price" : 0, "bedrooms":bedr,"bathrooms":bathr,"sqft_living":sliving,"sqft_lot":slot,
+	    "floors":nfloors,"waterfront":water.get(),
+		"view":vw,"condition":cond,
+		"grade":gr,"sqft_above":sabove,"sqft_basement":sbasement,"yr_built":yrb,"renovation_age":renage}
+    
+	output_table_1 = output_table.append(unos,ignore_index=True)	
+	root.destroy()
+	
+root = tk.Tk()
+root.title("SPO")
+canvas = tk.Canvas(root, height=900, width=800, bg="black")
+canvas.pack()
+
+fileFont = font.Font(family='Courier', size=12)
+confirmFont = font.Font(family='Courier', size=10)
+frame = tk.Frame(root, bg="#fff2e6")
+frame.place(relwidth=1, relheight=1)
+
+vlist = [1,2,3,4,5]
+vlist2 = [1,2,3,4,5,6,7,8,9,10]
+vlist3 = [1,2,3,4,5,6,7,8,9,10,11,12]
+bedr = tk.IntVar()
+bathr = tk.IntVar()
+sliving = tk.IntVar()
+slot = tk.IntVar()
+nfloors = tk.IntVar()
+water = tk.IntVar()
+vw = tk.IntVar()
+cond = tk.IntVar()
+gr = tk.IntVar()
+sabove = tk.IntVar()
+sbasement = tk.IntVar()
+yrb = tk.IntVar()
+renage = tk.IntVar()
+
+
+bed = tk.Entry(root)
+bed.place(x=100, y=110)
+lab = tk.Label(root, bg="#fff2e6", text ="Broj spavaćih soba")
+lab.place(x = 100, y = 80)
+
+bath = tk.Entry(root)
+bath.place(x=100, y=210)
+lab = tk.Label(root, bg="#fff2e6", text ="Broj kupatila")
+lab.place(x = 100, y = 180)
+
+liv = tk.Entry(root)
+liv.place(x=100, y=310)
+lab = tk.Label(root, bg="#fff2e6", text ="Kvadratura dnevne sobe")
+lab.place(x = 100, y = 280)
+
+lot = tk.Entry(root)
+lot.place(x=100, y=410)
+lab = tk.Label(root, bg="#fff2e6", text ="Kvadratura dvorišta")
+lab.place(x = 100, y = 380)
+
+floors = tk.Entry(root)
+floors.place(x=100, y=510)
+lab = tk.Label(root, bg="#fff2e6", text ="Broj spratova")
+lab.place(x = 100, y = 480)
+
+waterfront = tk.Checkbutton(root, bg = "#fff2e6", text="Da li je imanje kraj vode?", variable = water)
+waterfront.place(x=90, y=610)
+#water = waterfront.get()
+
+view = ttk.Combobox(root, values = vlist)
+view.place(x=100, y=710)
+lab = tk.Label(root, bg="#fff2e6", text ="Ocjena pogleda")
+lab.place(x = 100, y = 680)
+
+condition = ttk.Combobox(root, values = vlist)
+condition.place(x=500, y=110)
+lab = tk.Label(root, bg="#fff2e6", text ="Ocjena stanja")
+lab.place(x = 500, y = 80)
+
+grade = ttk.Combobox(root, values = vlist2)
+grade.place(x=500, y=210)
+lab = tk.Label(root, bg="#fff2e6", text ="Procjena kvaliteta")
+lab.place(x = 500, y = 180)
+
+
+above = tk.Entry(root)
+above.place(x=500, y=310)
+lab = tk.Label(root, bg="#fff2e6", text ="Kvadratura interijera bez podruma")
+lab.place(x = 470, y = 280)
+
+yrbuilt = tk.Entry(root)
+yrbuilt.place(x=500, y=410)
+lab = tk.Label(root, bg="#fff2e6", text ="Godina konstrukcije")
+lab.place(x = 500, y = 380)
+
+renovation = tk.Entry(root)
+renovation.place(x=500, y=610)
+lab = tk.Label(root, bg="#fff2e6", text ="Broj godina od zadnje renovacije")
+lab.place(x = 460, y = 580)
+
+basement = tk.Entry(root)
+basement.place(x=500, y=510)
+lab = tk.Label(root, bg="#fff2e6", text ="Kvadratura podruma")
+lab.place(x = 500, y = 480)
+
+
+btn = tk.Button(root, text = "Procjeni",bg="#aabbbb",command=Unos)
+btn.place(x=400,y=800)
+
+
+
+root.mainloop();
+
+
