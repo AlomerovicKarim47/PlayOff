@@ -1,11 +1,16 @@
 # Playoff
 
 ##How to run
+
 1) Make sure you have postgresql installed and a user account with root/root username/password
+
 2) RUN BACKEND: go to play-back
     npm install
+    
     npm audit fix --force
+    
     npm start
+
 3) RUN FRONTEND: go to play-off and do the same as for the backend
 
 ## Inicijalni prijedlog teme
