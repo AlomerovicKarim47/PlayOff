@@ -1,4 +1,13 @@
 # Playoff
+
+##How to run
+1) Make sure you have postgresql installed and a user account with root/root username/password
+2) RUN BACKEND: go to play-back
+    npm install
+    npm audit fix --force
+    npm start
+3) RUN FRONTEND: go to play-off and do the same as for the backend
+
 ## Inicijalni prijedlog teme
 ### Opis aplikacije
 Playoff je aplikacija namijenjena sportistima i rekreativcima. Prilikom organizovanja prijateljskih susreta postoji mnogo problema koje nemaju sistematično rješenje. Često timovi igraju protiv istih timova i ne mogu naći nove adekvatne protivnike. Nekim timovima fali igrača dok također postoje igrači koji ne mogu naći tim. Ovom aplikacijom omogućavamo korisniku da nađe/formira tim i suigrače na njegovom nivou vještine, organizuje utakmice sa adekvatnim protivnicima te da ima pregled nad ostvarenim rezultatima u prošlim mečevima.
