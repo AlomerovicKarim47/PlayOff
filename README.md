@@ -2,7 +2,7 @@
 
 ## How to run
 
-1) Make sure you have postgresql installed and a user account with root/root username/password
+1) Make sure you have postgresql installed and within it a user account with root/root username/password
 
 2) RUN BACKEND: 
 
