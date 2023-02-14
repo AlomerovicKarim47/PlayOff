@@ -1,15 +1,14 @@
 import express from 'express'
 import config from './config'
 import loaders from './loaders'
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('../swagger_output.json')
+import dotenv from 'dotenv'
 
 const startServer = async () => {
+    dotenv.config();
+    console.log("ENVIRONMENT IS: " + process.env.NODE_ENV);
     const app = express()
     await loaders.loadSequelize()
     loaders.loadExpress(app)
-    //loaders.loadSwagger(app)
-	app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
     app.listen(config.PORT)
     
     console.log(`Play-back running on port ${config.PORT}.`)

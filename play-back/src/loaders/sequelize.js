@@ -4,14 +4,15 @@ import models from '../models'
 import {postaviBazu} from '../data'
 
 const loadSequelize = async() => {
-    const connection = new Sequelize(`postgres://${config.db.USER}:${config.db.PASS}@${config.db.HOST}:${config.db.PORT}/template1`, {logging:false})
-    const sequelize = new Sequelize(`postgres://${config.db.USER}:${config.db.PASS}@${config.db.HOST}:${config.db.PORT}/${config.db.NAME}`, {logging: false})
+    //const connection = new Sequelize(`postgres://${config.db.USER}:${config.db.PASS}@${config.db.HOST}:${config.db.PORT}/template1`, {logging:false})
     try {    
-        try{   
+        /*try{   
             await connection.query(`CREATE DATABASE ${config.db.NAME} WITH OWNER = ${config.db.USER} ENCODING = 'UTF8'`)
         }catch{
-            //DO NOTHING
-        }
+            
+        }*/
+        const sequelize = new Sequelize(config.connectionString, {logging: false})
+        console.log(config.connectionString);
         const db = {}
 
         db.Korisnik = models.Korisnik(sequelize)
