@@ -1,6 +1,6 @@
-# Playoff
+# Playoff (https://playoff.onrender.com/)
 
-## How to run
+## How to run locally
 
 1) Make sure you have postgresql installed and within it a user account with root/root username/password
 
