@@ -3,6 +3,7 @@ import sportovi from '../config/sportovi'
 import ClanoviTima from '../components/ClanoviTima'
 import Select from 'react-select'
 import {observer} from 'mobx-react'
+import {Buffer} from 'buffer'
 
 class MojTim extends Component {
     render() {

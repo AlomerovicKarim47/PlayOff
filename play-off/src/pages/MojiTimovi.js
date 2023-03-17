@@ -3,6 +3,7 @@ import TimService from '../services/TimService'
 import sportovi from '../config/sportovi'
 import {Route, Link} from 'react-router-dom'
 import MojTim from './MojTim'
+import {Buffer} from 'buffer'
 
 export default class MojiTimovi extends Component {
     state = {

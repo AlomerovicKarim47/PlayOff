@@ -54,7 +54,7 @@ export default class Profil extends Component {
                             <img src= {this.state.changed?this.state.fileUrl:this.state.user.slika?
                                         `data:${"image/png"};base64,${Buffer.from(this.state.user.slika.data).toString('base64')}`:null} 
                                         class="rounded mx-auto d-block img-thumbnail" 
-                                class="rounded mx-auto d-block img-thumbnail" 
+                                 
                                 style = {{width:'300px', height:'300px'}}/>
                         </div>
                         <div class = "row">
