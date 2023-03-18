@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import {Route, Link, Switch, withRouter} from 'react-router-dom'
+import {Route, NavLink, Link, Switch, withRouter} from 'react-router-dom'
 import Organizacija from '../pages/Organizacija'
 import Timovi from '../pages/Timovi'
 import Zahtjevi from '../pages/Zahtjevi'
@@ -9,6 +9,8 @@ import SearchResults from './SearchResults'
 import {observer} from 'mobx-react'
 import UserStore from '../stores/UserStore'
 import {Dropdown} from 'react-bootstrap'
+
+import '../css/HomePage.css'
 
 class HomePage extends Component {
     
@@ -40,53 +42,74 @@ class HomePage extends Component {
         let search = '/home/search'
         return (
             <div>
-
-                <div class = "container-fluid">
-                    <div class = "row">
-                        <div class = "col" style = {{padding:"0px"}}>
-                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                                <ul class="navbar-nav mr-auto">
-                                    <div class = "col" style = {{fontSize:"30px", fontWeight:"bold", display:"inline-block", color:"white", width:'220px', cursor:'default'}}>
-                                        ⚽PLAY OFF🏀
-                                    </div>
-                                    <li class="nav-item">
-                                        <Link class = "nav-link" to = {organizacija+"/organizuj"}>Organizacija</Link>
-                                    </li>
-                                    <li class="nav-item">
-                                        <Link class = "nav-link" to = {timovi+"/mojiTimovi"}>Timovi</Link>
-                                    </li>
-                                    <li class="nav-item">
-                                        <Link class = "nav-link" to = {zahtjevi+"/mecBezTimova"}>Zahtjevi</Link>
-                                    </li>
-                                </ul>                            
-                            </nav>
-                        </div>
-                        <div class = "col bg-dark" style = {{paddingTop:"5px"}}>
-                            <div class="input-group">
-                                <input type = "text" class = "form-control" placeholder="Traži" onChange = {(e) => this.setState({query:e.target.value})}/>
-                                <div class="input-group-append">
-                                    <button class="btn btn-success" type="button" onClick = {() => this.search()}>Traži</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class = "col bg-dark" style = {{paddingTop:"5px"}}>
-                            <div style = {{float:'right'}}>
-                            <Dropdown>
-                                <Dropdown.Toggle variant="link" id="dropdown-basic" style = {{color:'white', textDecoration:'none'}}>
-                                    {UserStore.user.username}
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item>
-                                        <Link to = {`${profil}/${UserStore.user.id}`} style = {{textDecoration:'none', color:'black', width:'100%'}}>Moj Profil</Link>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item onClick={()=>this.logOut()}>Odjava</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                            </div>
-                        </div>
+                <div className = "toolbar-nav">
+                    <div className = "logo">
+                        ⚽PLAY OFF🏀
                     </div>
-                </div>
+                    <div className="navigation">
+                        <ul>
+                            <li>
+                                <NavLink activeClassName='navigation-active' to = {organizacija+"/organizuj"}>Organizacija</NavLink>
+                            </li>
+                            <li>
+                                <NavLink activeClassName='navigation-active' to = {timovi+"/mojiTimovi"}>Timovi</NavLink>
+                            </li>
+                            <li>
+                                <NavLink activeClassName='navigation-active' to = {zahtjevi+"/mecBezTimova"}>Zahtjevi</NavLink>
+                            </li>
+                        </ul>
+                    </div>                            
+                    
+                    <div className = "search-bar">
+                        <input type = "text" className = "form-control" placeholder="Traži korisnike ili termine..." onChange = {(e) => this.setState({query:e.target.value})}/>
+                        <button className="btn btn-success" type="button" onClick = {() => this.search()}>Traži</button>
+                    </div>
+                    
+                    <div className = "dropdown-whole">
+                        <Dropdown>
+                            <Dropdown.Toggle variant="link" id="dropdown-basic" style = {{color:'white', textDecoration:'none'}}>
+                                {UserStore.user.username}
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item>
+                                    <Link to = {`${profil}/${UserStore.user.id}`} style = {{textDecoration:'none', color:'black'}}>Moj Profil</Link>
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={()=>this.logOut()}>
+                                    Odjava
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+
+                    <button class = "hamburger-btn" onClick={() => {
+                        let nav = document.getElementsByClassName("navigation-alt")[0]
+                        nav.style.display = (nav.style.display === "none")?"flex":"none"
+                    
+                    }}>
+                        <div class = "hamburger"></div>
+                    </button>    
+                </div>  
+
+                <div className="navigation-alt" onClick = {(e) => e.currentTarget.style.display = "none"}>
+                        <ul>
+                            <li>
+                                <Link to = {organizacija+"/organizuj"}>Organizacija</Link>
+                            </li>
+                            <li>
+                                <Link to = {timovi+"/mojiTimovi"}>Timovi</Link>
+                            </li>
+                            <li>
+                                <Link to = {zahtjevi+"/mecBezTimova"}>Zahtjevi</Link>
+                            </li>
+                            <li>
+                                <Link to = {`${profil}/${UserStore.user.id}`}>Moj Profil</Link>
+                            </li>
+                            <li>
+                                <Link to = "" onClick={() => this.logOut()}>Odjava</Link>
+                            </li>
+                        </ul>
+                    </div>
 
                 <Switch>
                     <Route path = {organizacija} component = {Organizacija}/>

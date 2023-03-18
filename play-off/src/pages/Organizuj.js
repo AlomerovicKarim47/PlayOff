@@ -97,136 +97,127 @@ class Organizuj extends Component {
         const tipoviDogadjajaOpcije = tipoviDogadjaja.map(d => {return {label: d.naziv, value:d.id}})
         return (
             <div>
-                <div class = "container-fluid" style = {{padding:"20px"}}>
-                    
-                    <div class = "row">
-                        <div class = "col-sm-1">Mjesto:</div> 
-                        <div class = "col-sm-11">
-                            <input type = "text" class = "form-control" placeholder = "Mjesto" disabled = {OrganizujStore.kreirano}
-                                value = {OrganizujStore.mjesto}
-                                onChange = {(e) => {
-                                    OrganizujStore.mjesto = e.target.value
-                                    this.setState({mjestoError:null})
-                                    }}/>
-                            <div className="validation-msg">{this.state.mjestoError}</div>
-                        </div>
+                <div className = "input-whole">
+                    <label>Mjesto: </label>
+                    <div class="input-field">
+                        <input type = "text" class = "form-control" placeholder = "Mjesto" disabled = {OrganizujStore.kreirano}
+                            value = {OrganizujStore.mjesto}
+                            onChange = {(e) => {
+                                OrganizujStore.mjesto = e.target.value
+                                this.setState({mjestoError:null})
+                                }}/>
+                        <div className="validation-msg">{this.state.mjestoError}</div>
                     </div>
-
-                    <div class = "row">
-                        <div class = "col-sm-1">Datum:</div> 
-                        <div class = "col-sm-11">
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <DatePicker
-                                    value = {OrganizujStore.datum}
-                                    disabled = {OrganizujStore.kreirano}
-                                    style = {{width:'100%'}}
-                                    format="dd/MM/yyyy"
-                                    onChange={date => {
-                                        this.setState({datumError:null})
-                                        OrganizujStore.datum = date}}
-                                />
-                                <div className="validation-msg">{this.state.rodjendanError}</div>
-                            </MuiPickersUtilsProvider>
-                            <div className="validation-msg">{this.state.datumError}</div>
-                        </div>
-                    </div>
-                    
-                    <div class = "row">
-                        <div class = "col-sm-1">Vrijeme:</div> 
-                        <div class = "col-sm-11">
-                            <input type = "time" class = "form-control" disabled = {OrganizujStore.kreirano}
-                                value = {OrganizujStore.vrijeme}
-                                onChange = {(e) => {OrganizujStore.vrijeme = e.target.value
-                                                    this.setState({vrijemeError:null})
-                                                }}/>
-                            <div className="validation-msg">{this.state.vrijemeError}</div>
-                        </div>
-                    </div>
-
-                    <div class = "row">
-                        <div class = "col-sm-1">Sport:</div> 
-                        <div class = "col-sm-11">
-                            <Select options = {sportOpcije} className="react-select" isDisabled = {OrganizujStore.kreirano} 
-                                value = {OrganizujStore.sport!==0?{value: OrganizujStore.sport, 
-                                                                    label: sportovi.find(s=>s.id===OrganizujStore.sport).naziv}:null}
-                                onChange = {(e) => {
-                                    OrganizujStore.sport = e.value
-                                    this.setState({sportError:null})
-                                    }}/>
-                            <div className="validation-msg">{this.state.sportError}</div>
-                        </div>
-                    </div>
-                    
-                    <div class = "row">
-                        <div class = "col-sm-1">Tip događaja:</div> 
-                        <div class = "col-sm-11">
-                            <Select options = {tipoviDogadjajaOpcije} className="react-select" isDisabled = {OrganizujStore.kreirano}
-                                value = {OrganizujStore.tip}
-                                onChange = {(e) => {
-                                    OrganizujStore.tip = e
-                                    if (e.value === 2) 
-                                        this.setState({biranjeTimova:true, tipError:null})
-                                    else
-                                        this.setState({biranjeTimova:false, tipError:null})
-                                    }}/>
-                            <div className="validation-msg">{this.state.tipError}</div>
-                        </div>
-                    </div>
-                    
-                    <Collapse in = {this.state.biranjeTimova}>
-                        <div class = "container-fluid">
-                            Timovi:
-                            <br/>
-                            <div class = "row">
-                                <div class = "col">
-                                    <BiranjeTima tim = {1} disabled = {OrganizujStore.kreirano} onChange = {() => this.setState({tim1Error:null})}/>
-                                    <div className="validation-msg">{this.state.tim1Error}</div>
-                                </div>
-                                <div class = "col">
-                                    <BiranjeTima tim = {2} protivnik = {true} disabled = {OrganizujStore.kreirano} onChange = {() => this.setState({tim2Error:null})}/>
-                                    <div className="validation-msg">{this.state.tim2Error}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </Collapse>
-                    <div class = "row">
-                        <div class = "col">
-                            <button 
-                                style = {{width:'100%'}}
-                                class = "btn btn-outline-success"
-                                onClick = {() => {
-                                    this.setState({
-                                        biranjeTimova:false,
-                                        mjestoError:null,
-                                        vrijemeError: null,
-                                        datumError:null,
-                                        sportError: null,
-                                        tipError: null,
-                                        tim1Error: null,
-                                        tim2Error: null})
-                                    resetOrganizujStore()
-                                }}
-                                >Organizuj drugu aktivnost</button>
-                        </div>
-                        <div class = "col">
-                            <button type = "button" 
-                                style = {{width:'100%'}}
-                                class = "btn btn-success" 
-                                onClick = {() => {
-                                        if (this.state.biranjeTimova)
-                                            this.posaljiZahtjevZaMec()
-                                        else
-                                            this.kreirajMecBezTimova()
-                                    }} 
-                                disabled={OrganizujStore.kreirano}>
-                                    Zakaži
-                            </button>
-                        </div>
-                        <br/>
-                    </div>
-                    
-                    {!this.state.biranjeTimova?<UcesniciMecBezTimova/>:null}
                 </div>
+                
+                <div className = "input-whole">
+                    <label>Datum: </label>
+                    <div class="input-field">
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <DatePicker
+                                value = {OrganizujStore.datum}
+                                disabled = {OrganizujStore.kreirano}
+                                style = {{width:'100%'}}
+                                format="dd/MM/yyyy"
+                                onChange={date => {
+                                    this.setState({datumError:null})
+                                    OrganizujStore.datum = date}}
+                            />
+                            <div className="validation-msg">{this.state.rodjendanError}</div>
+                        </MuiPickersUtilsProvider>
+                    </div>
+                    <div className="validation-msg">{this.state.datumError}</div>
+                </div>
+                
+                <div className = "input-whole">
+                    <label>Vrijeme:</label>
+                    <input type = "time" class = "form-control" disabled = {OrganizujStore.kreirano}
+                        value = {OrganizujStore.vrijeme}
+                        onChange = {(e) => {OrganizujStore.vrijeme = e.target.value
+                                            this.setState({vrijemeError:null})
+                                        }}/>
+                    <div className="validation-msg">{this.state.vrijemeError}</div>
+                </div>
+                
+                <div className = "input-whole">
+                    <label>Sport: </label>
+                    <div class="input-field">
+                        <Select options = {sportOpcije} className="react-select" isDisabled = {OrganizujStore.kreirano}
+                            value = {OrganizujStore.sport!==0?{value: OrganizujStore.sport,
+                                                                label: sportovi.find(s=>s.id===OrganizujStore.sport).naziv}:null}
+                            onChange = {(e) => {
+                                OrganizujStore.sport = e.value
+                                this.setState({sportError:null})
+                                }}/>
+                    </div>
+                    <div className="validation-msg">{this.state.sportError}</div>
+                </div>
+
+                <div className = "input-whole">
+                    <label>Tip događaja:</label>
+                    <div class="input-field">
+                        <Select options = {tipoviDogadjajaOpcije} className="react-select" isDisabled = {OrganizujStore.kreirano}
+                            value = {OrganizujStore.tip}
+                            onChange = {(e) => {
+                                OrganizujStore.tip = e
+                                if (e.value === 2)
+                                    this.setState({biranjeTimova:true, tipError:null})
+                                else
+                                    this.setState({biranjeTimova:false, tipError:null})
+                                }}/>
+                    </div>
+                    <div className="validation-msg">{this.state.tipError}</div>
+                </div>
+
+                <Collapse in = {this.state.biranjeTimova}>
+                    <div class = "container-fluid">
+                        Timovi:
+                        <br/>
+                        
+                            <div class = "col">
+                                <BiranjeTima tim = {1} disabled = {OrganizujStore.kreirano} onChange = {() => this.setState({tim1Error:null})}/>
+                                <div className="validation-msg">{this.state.tim1Error}</div>
+                            </div>
+                            <div class = "col">
+                                <BiranjeTima tim = {2} protivnik = {true} disabled = {OrganizujStore.kreirano} onChange = {() => this.setState({tim2Error:null})}/>
+                                <div className="validation-msg">{this.state.tim2Error}</div>
+                            </div>
+                    </div>
+                </Collapse>
+            
+                <button 
+                    style = {{width:'100%'}}
+                    class = "btn btn-outline-success"
+                    onClick = {() => {
+                        this.setState({
+                            biranjeTimova:false,
+                            mjestoError:null,
+                            vrijemeError: null,
+                            datumError:null,
+                            sportError: null,
+                            tipError: null,
+                            tim1Error: null,
+                            tim2Error: null})
+                        resetOrganizujStore()
+                    }}
+                    >Organizuj drugu aktivnost
+                </button>
+                
+                <button type = "button" 
+                    style = {{width:'100%'}}
+                    class = "btn btn-success" 
+                    onClick = {() => {
+                            if (this.state.biranjeTimova)
+                                this.posaljiZahtjevZaMec()
+                            else
+                                this.kreirajMecBezTimova()
+                        }} 
+                    disabled={OrganizujStore.kreirano}>
+                        Zakaži
+                </button>
+                    
+                <br/>
+                {!this.state.biranjeTimova?<UcesniciMecBezTimova/>:null}
             </div>
         )
     }

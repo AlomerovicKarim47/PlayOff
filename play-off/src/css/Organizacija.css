@@ -1,0 +1,42 @@
+.page-whole{
+    display: flex;
+    flex-flow:row nowrap;
+}
+
+.sidebar-wrapper{
+    flex: 1 3 100%;
+}
+
+.content-wrapper{
+    padding: 1rem;
+    flex: 3 1 100%;
+}
+
+@media (max-width: 768px){
+    .page-whole{
+        flex-direction: column;
+    }
+}
+
+/*ORGANIZUJ TAB*/
+.input-whole{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.input-whole label{
+    flex: 1 3 100%;
+    white-space: nowrap;
+}
+
+.input-field{
+    flex: 3 1 100%;
+}
+
+@media (max-width: 480px){
+    .input-whole{
+        flex-flow: column nowrap;
+        align-items: stretch;
+    }
+}

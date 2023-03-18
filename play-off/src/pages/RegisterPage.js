@@ -27,20 +27,13 @@ class RegisterPage extends Component {
         invalid: false
     }
 
-    register = async () => {
+    register = async (e) => {
+        e.target.disabled = true;
+        e.target.innerHTML = "Pričekajte..."
         try {
-            this.state.invalid = false
-            // Set the user's sex
-            if (this.state.radioSpol === "Muško") this.state.spol = true
-            else if (this.state.radioSpol === "Žensko") this.state.spol = false
-            else this.state.spol = null
-
-            console.log("State:", this.state)
-            if (this.state.rodjendan != null) {
-                console.log(this.state.rodjendan.getDate())
-                console.log(this.state.rodjendan.getMonth())
-                console.log(this.state.rodjendan.getFullYear())
-            }
+            let spol = null;
+            if (this.state.radioSpol === "Muško") spol = true
+            else if (this.state.radioSpol === "Žensko") spol = false
 
             await registerSchema.validate({
                 username: this.state.username, password: this.state.password,
@@ -49,18 +42,23 @@ class RegisterPage extends Component {
                 grad: this.state.grad
             }, { abortEarly: false })
 
-            // Cast date into string
-
             let res = await KorisnikService.register({
                 username: this.state.username, password: this.state.password,
                 email: this.state.email, ime: this.state.ime, prezime: this.state.prezime,
                 rodjendan: this.state.rodjendan, drzava: this.state.drzava,
-                grad: this.state.grad, spol: this.state.spol
+                grad: this.state.grad, spol: spol
             })
-            if (res.code === 201) this.props.history.push("/")
-            else{ this.setState({ invalid: true }); console.log(res)}
+            if (res.code === 201) 
+                this.props.history.push("/")
+            else{ 
+                e.target.disabled = false;
+                e.target.innerHTML = "Registruj se"
+                this.setState({ invalid: true });
+            }
         } catch (error) {
             if (error.name === "ValidationError") {
+                e.target.disabled = false;
+                e.target.innerHTML = "Registruj se"
                 let errors = {}
                 error.inner.map(i => errors[i.path + "Error"] = i.message)
                 this.setState({ ...this.state, ...errors })
@@ -126,7 +124,7 @@ class RegisterPage extends Component {
                         </FormControl>
                     </div>
 
-                    <button className="btn btn-success" onClick={() => this.register()}>Registruj se</button>
+                    <button className="btn btn-success" onClick={(e) => this.register(e)}>Registruj se</button>
                     <div className="validation-msg">{this.state.invalid ? "Provjerite unesene podatke." : ""}</div>
 
                     <button className="btn btn-success" onClick={() => this.redirectLogin()}>Povratak na Login</button>

@@ -10,10 +10,13 @@ class LoginPage extends Component {
     state = {
         username: "",
         password: "",
-        invalid: false
+        invalid: false,
+        loginButtonDisabled: false
     }
 
-    login = async () => {
+    login = async (e) => {
+        e.target.disabled = true
+        e.target.innerHTML = "Pričekajte..."
         try {
             await loginSchema.validate({ username: this.state.username, password: this.state.password }, { abortEarly: false })
             let res = await KorisnikService.login({ username: this.state.username, password: this.state.password })
@@ -22,12 +25,16 @@ class LoginPage extends Component {
                 UserStore.user = res.data.korisnik
                 this.props.history.push("/home/organizacija/organizuj")
             } else {
+                e.target.disabled = false
+                e.target.innerHTML = "Log in"
                 this.setState({ invalid: true })
             }
         } catch (error) {
             if (error.name === "ValidationError") {
                 let errors = {}
                 error.inner.map(i => errors[i.path + "Error"] = i.message)
+                e.target.disabled = false
+                e.target.innerHTML = "Log in"
                 this.setState({ ...this.state, ...errors })
             }
             else
@@ -53,7 +60,7 @@ class LoginPage extends Component {
                     <input type="password" className="form-control" placeholder="Lozinka" onChange={(e) => this.changeAttribute("password", e.target.value)} />
                     <div className="validation-msg">{this.state.passwordError}</div>
 
-                    <button className="btn btn-success" onClick={() => this.login()}>Log in</button>
+                <button /* disabled = {this.state.loginButtonDisabled} */ className="btn btn-success" onClick={(e) => this.login(e)}>Log in</button>
                     <div className="validation-msg">{this.state.invalid ? "Neispravni login podaci." : ""}</div>
 
                     <button className="btn btn-success" onClick={() => this.register()}>Registracija</button>
