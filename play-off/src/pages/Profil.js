@@ -93,7 +93,7 @@ export default class Profil extends Component {
                 <div className = "historija-container">
                     <label>Historija:</label>
                     {this.state.historija.map(item=>
-                            <HistorijaItem data = {item}/>
+                        <HistorijaItem data = {item}/>
                     )}
                 </div>
             </div>       

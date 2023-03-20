@@ -8,9 +8,7 @@ import UcesniciMecBezTimova from '../components/UcesniciMecBezTimova'
 import tipoviDogadjaja from '../config/tipoviDogadjaja'
 import { observer } from 'mobx-react';
 import moment from 'moment'
-import BiranjeTima from '../components/BiranjeTima'
 import MecService from '../services/MecService';
-import { Buffer } from 'buffer';
 import Scoreboard from '../components/Scoreboard';
 
 class MojDogadjaj extends Component {

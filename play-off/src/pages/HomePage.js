@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import {Route, NavLink, Link, Switch, withRouter} from 'react-router-dom'
+import {Route, Switch, withRouter} from 'react-router-dom'
 import Organizacija from '../pages/Organizacija'
 import Timovi from '../pages/Timovi'
 import Zahtjevi from '../pages/Zahtjevi'
@@ -8,7 +8,6 @@ import Profil from '../pages/Profil'
 import SearchResults from './SearchResults'
 import {observer} from 'mobx-react'
 import UserStore from '../stores/UserStore'
-import {Dropdown} from 'react-bootstrap'
 import Toolbar from '../components/Toolbar'
 
 import '../css/Homepage.css'
