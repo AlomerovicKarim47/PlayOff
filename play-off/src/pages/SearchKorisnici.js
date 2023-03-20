@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import KorisnikService from '../services/KorisnikService'
-import moment from 'moment'
 import {withRouter} from 'react-router-dom'
+import KorisnikSearchResult from '../components/KorisnikSearchResult'
 
 class SearchKorisnici extends Component {
     state = {
@@ -32,23 +32,11 @@ class SearchKorisnici extends Component {
         if (!this.state.korisnici) return null
         return (
             <div>
-                {this.state.korisnici.map(z => {
-                    return (
-                        <div key= {z.id} class = "card bg-light" style = {{margin:'5px', cursor:'pointer'}} onClick = {() => this.props.history.push("/home/profil/" + z.id)}>
-                            <div class = "row">
-                                <div class = "col-md-auto">
-                                    {z.slika?<img src={`data:${"image/png"};base64,${Buffer.from(z.slika.data).toString('base64')}`} 
-                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>:null}      
-                                </div>
-                                <div class = "col">
-                                    {z.ime + " " + z.prezime + " (" + z.username +")"}<br/>
-                                    {"Mjesto: " + z.grad + ", " + z.drzava}<br/>
-                                    {"Datum rodjenja: " + moment(z.rodjendan).format("DD/MM/YYYY").toString()}
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })}
+                {this.state.korisnici.map(z => 
+                    <KorisnikSearchResult 
+                        korisnik = {z}
+                        onClick = {() => this.props.history.push("/home/profil/" + z.id)}/>
+                )}
             </div>
         )
     }

@@ -1,0 +1,53 @@
+.slika-info-container{
+    display: flex;
+    flex-flow:row nowrap;
+    gap: 1rem;
+}
+
+.slika-input-whole{
+    flex: 1 2 100%;
+    min-width:300px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.slika-input-whole input{
+    width:300px;
+}
+
+.profil-info-whole{
+    flex: 2 1 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+}
+
+.profil-info-line{
+    display: flex;
+}
+
+.profil-info-line label{
+    flex: 1 2 100%;
+}
+
+.profil-info-content{
+    flex: 2 1 100%;
+}
+
+@media (max-width: 768px){
+    .slika-info-container{
+        flex-direction: column;
+    }
+    .profil-info-line{
+        padding: 0 2rem;
+        white-space: nowrap;
+        gap: 1rem;
+    }
+    .profil-info-line label{
+        flex: 1 1 100%;
+    }
+    
+    .profil-info-content{
+        flex: 1 1 100%;
+    }
+}

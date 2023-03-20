@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import UserStore from '../stores/UserStore'
 import moment from 'moment'
 import KorisnikService from '../services/KorisnikService'
-import TimService from '../services/TimService'
 import MecService from '../services/MecService'
-import sportovi from '../config/sportovi'
+import { Buffer } from 'buffer'
+import "../css/Profil.css"
+import HistorijaItem from '../components/HistorijaItem'
 
 export default class Profil extends Component {
     state = {
@@ -46,84 +47,54 @@ export default class Profil extends Component {
     render() {
         if (!this.state.user || !this.state.historija) return null
         return ( 
-            <div class = "container">
-                <div class = "row">
-                    <div class = "col-md-auto">
-                        <div class = "mx-auto" style = {{width:'50px'}}>Slika:</div>  
-                        <div class = "row" >
-                            <img src= {this.state.changed?this.state.fileUrl:this.state.user.slika?
-                                        `data:${"image/png"};base64,${Buffer.from(this.state.user.slika.data).toString('base64')}`:null} 
-                                        class="rounded mx-auto d-block img-thumbnail" 
-                                 
-                                style = {{width:'300px', height:'300px'}}/>
-                        </div>
-                        <div class = "row">
-                            <div style = {{width:'300px', margin:'0 auto'}}>
-                                <input type = "file" class = "form-control" name = "korisnikSlika" style = {{width:'100%'}} accept = "image/*"
-                                hidden = {this.state.user.id !== UserStore.user.id}
-                                    onChange = {(e) => {
-                                            this.setState({
-                                                changed:true,
-                                                slika: e.target.files[0],
-                                                fileUrl: URL.createObjectURL(e.target.files[0])}, this.uploadSliku)
-                                        }}/>
-                            </div>
-                        </div>
+            <div>
+                <div className="slika-info-container">
+                    
+                    <div className="slika-input-whole">
+                        Slika: 
+                        <img src= {this.state.changed?this.state.fileUrl:this.state.user.slika?
+                                    `data:${"image/png"};base64,${Buffer.from(this.state.user.slika.data).toString('base64')}`:null}
+                                    className="rounded mx-auto d-block img-thumbnail"
+                                    style = {{width:'300px', height:'300px'}}/>
+                        <input type = "file" className = "form-control" name = "korisnikSlika" accept = "image/*"
+                            hidden = {this.state.user.id !== UserStore.user.id}
+                            onChange = {(e) => {
+                                    this.setState({
+                                        changed:true,
+                                        slika: e.target.files[0],
+                                        fileUrl: URL.createObjectURL(e.target.files[0])}, this.uploadSliku)
+                                }}/>
                     </div>
-                    <div class = "col" style = {{fontSize:'20px', padding:'40px'}}>
-                        <div class = "row info-line" >
-                            <div class = "col-2">Ime i prezime:</div><div class = "col-10">{this.state.user.ime + " " + this.state.user.prezime}</div>
+                    
+                    <div className = "profil-info-whole">
+                        <div className = "profil-info-line">
+                            <label>Ime i prezime:</label>
+                            <div className = "profil-info-content">{this.state.user.ime + " " + this.state.user.prezime}</div>
                         </div>
-                        <div class = "row info-line">
-                            <div class = "col-2">Username:</div><div class = "col-10">{this.state.user.username}</div>
+                        <div className = "profil-info-line">
+                            <label>Username:</label>
+                            <div className = "profil-info-content">{this.state.user.username}</div>
                         </div>
-                        <div class = "row info-line" >
-                            <div class = "col-2">Država i grad:</div><div class = "col-10">{this.state.user.drzava + ", " + this.state.user.grad}</div>
+                        <div className = "profil-info-line">
+                            <label>Država i grad:</label>
+                            <div className = "profil-info-content">{this.state.user.drzava + ", " + this.state.user.grad}</div>
                         </div>
-                        <div class = "row info-line" >
-                            <div class = "col-2">Datum rođenja:</div><div class = "col-10">{moment(this.state.user.rodjendan).format("DD/MM/YYYY").toString()}</div>
+                        <div className = "profil-info-line">
+                            <label>Datum rođenja:</label>
+                            <div className = "profil-info-content">{moment(this.state.user.rodjendan).format("DD/MM/YYYY").toString()}</div>
                         </div>
-                        <div class = "row info-line" >
-                            <div class = "col-2">Spol:</div><div class = "col-10">{this.state.user.spol?"Muški":"Ženski"}</div>
+                        <div className = "profil-info-line">
+                            <label>Spol:</label>
+                            <div className = "profil-info-content">{this.state.user.spol?"Muški":"Ženski"}</div>
                         </div>
                     </div>
                 </div>
-
-                
-                <div class = "row">
-                    <div style = {{paddingLeft:'20px', fontSize:'20px'}}>Historija:</div>
-                {this.state.historija.map(m=>{
-                    if (m.sport !== 0)
-                    if (m.tip === 2)
-                    return(<div class = {m.tip===1?"card bg-light":"card" }
-                                style = {{margin:'5px', cursor:'pointer', background:"#ccffcc"}}>
-                                <div class = "row">
-                                <div class = "col-md-auto">
-                                    <img src={`data:${"image/png"};base64,${Buffer.from(m.prviTim.slika.data).toString('base64')}`} 
-                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
-                                </div>
-                                <div class = "col" style = {{textAlign:'center'}}>
-                                    {m.prviTim.ime + " - " + m.drugiTim.ime}<br/>
-                                    {m.zavrsen?m.rezTim1 + " - " + m.rezTim2:null}<br hidden = {m.zavrsen!==true}/>
-                                    {sportovi.find(s => s.id === m.sport).naziv}<br/>
-                                    {m.vrijemeOdrzavanja}<br/>
-                                    {m.mjesto}
-                                </div>
-                                <div class = "col-md-auto">
-                                    <img src={`data:${"image/png"};base64,${Buffer.from(m.drugiTim.slika.data).toString('base64')}`} 
-                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
-                                </div>
-                                </div>
-
-                        </div>)
-                    else if (m.tip === 1)
-                    return(<div class = {m.tip===1?"card bg-light":"card" }
-                                style = {{margin:'5px', cursor:'pointer', background:"#ccffcc", textAlign:'center'}}>
-                                    {sportovi.find(s => s.id === m.sport).naziv}<br/>
-                                    {m.vrijemeOdrzavanja}<br/>
-                                    {m.mjesto}
-                        </div>)
-                })}
+            
+                <div className = "historija-container">
+                    <label>Historija:</label>
+                    {this.state.historija.map(item=>
+                            <HistorijaItem data = {item}/>
+                    )}
                 </div>
             </div>       
         )

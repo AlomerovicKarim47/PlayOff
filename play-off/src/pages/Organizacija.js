@@ -17,13 +17,13 @@ export default class Organizacija extends Component {
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                                <Link className="nav-link text-dark" to = {organizuj}>Organizuj</Link>
+                                <Link className="sidebar-link" to = {organizuj}>Organizuj</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link text-dark" to = {mojiDogadjaji}>Moji događaji</Link>
+                                <Link className="sidebar-link" to = {mojiDogadjaji}>Moji događaji</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link text-dark" to = {zakazano}>Zakazano</Link>
+                                <Link className="sidebar-link" to = {zakazano}>Zakazano</Link>
                             </li>
                         </ul>                 
                     </nav>

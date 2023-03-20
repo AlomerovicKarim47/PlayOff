@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import ZahtjevService from '../services/ZahtjevService'
 import UserStore from '../stores/UserStore'
 import sportovi from '../config/sportovi'
-import {CheckIcon, XIcon} from '@primer/octicons-react'
 import {observer} from 'mobx-react'
+import ZahtjevMecBezTimova from '../components/ZahtjevMecBezTimova'
 
 class ZahtjeviZaMecBezTimova extends Component {
     
@@ -43,33 +43,17 @@ class ZahtjeviZaMecBezTimova extends Component {
             <div>
                 {this.state.zahtjevi.map(z => {
                     if (z.sport !== 0 && z.mec)
-                    return (
-                        <div key= {z.id} class = "card bg-light" style = {{margin:'5px'}}>
-                            {sportovi.find(s=>s.id===z.sport).naziv}<br/>
-                            {z.mjesto}<br/>
-                            {z.vrijemeOdrzavanja}
-                            <div style = {{position:'absolute', width:'100%', paddingRight:'30px', paddingTop:'10px'}} >
-                                <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden={z.status!=null}>
-                                    <button class = "btn btn-outline-danger" style = {{marginRight:'10px'}}
-                                        onClick = {() => this.odbijZahtjev(z)}>
-                                        <XIcon/>Odbij
-                                    </button>
-                                    <button class = "btn btn-outline-success" 
-                                        onClick = {() => this.prihvatiZahtjev(z)}>
-                                            <CheckIcon/>Prihvati
-                                    </button>
-                                </div>
-                                <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden = {z.status !== true}>
-                                    <CheckIcon/>Prihvaćeno
-                                </div>
-                                <div style = {{ display: 'inline-block', float: 'right', width:'auto'}} hidden = {z.status !== false}>
-                                    <XIcon/>Odbijeno
-                                </div>
-                                
-                            </div>
-                            
-                        </div>
-                    )
+                        return (
+                            <ZahtjevMecBezTimova key = {z.id} data = {{
+                                sport: sportovi.find(s=>s.id===z.sport).naziv,
+                                mjesto: z.mjesto,
+                                vrijeme: z.vrijemeOdrzavanja,
+                                zahtjev: z
+                            }}
+                            onPrihvati = {this.prihvatiZahtjev}
+                            onOdbij = {this.odbijZahtjev}/>
+                        )
+                    return null
                 })}
             </div>
         )

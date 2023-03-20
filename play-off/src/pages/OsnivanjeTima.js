@@ -57,68 +57,67 @@ class OsnivanjeTima extends Component {
         const sportOpcije = sportovi.map(s => {return {label:s.naziv, value: s.id}})
         return (
             <div>
-                <div class = "container-fluid" style = {{padding:"20px"}}>
-                    <div class = "mx-auto" style = {{width:'50px'}}>Slika:</div>  
-                    <div class = "row" >
-                        <img src={this.state.fileUrl} class="rounded mx-auto d-block img-thumbnail" style = {{width:'300px', height:'300px'}}/>
-                    </div>
-                    <div class = "row">
-                    <div style = {{width:'300px', margin:'0 auto'}}>
-                        <input type = "file" class = "form-control" style = {{width:'100%'}} disabled={OsnivanjeStore.kreirano} accept = "image/*"
-                            onChange = {(e) => {OsnivanjeStore.slika = e.target.files[0]; 
+                <div className="osnivanje-tima-container">
+                    <div className="slika-input-whole">
+                        <label>Slika:</label>
+                    
+                        <div class="image-container">
+                            <img src={this.state.fileUrl} className="rounded mx-auto d-block img-thumbnail"
+                                width = "300px" height = "300px"/>
+                        </div>
+                    
+                        <input type = "file" className = "form-control" disabled={OsnivanjeStore.kreirano} accept = "image/*"
+                            onChange = {(e) => {OsnivanjeStore.slika = e.target.files[0];
                                                 this.setState({slikaError:null, fileUrl: URL.createObjectURL(e.target.files[0])})}}/>
                         <div className="validation-msg">{this.state.slikaError}</div>
-
                     </div>
-                    </div>
-                    <div class = "row">
-                        <div class = "col-sm-1">Ime:</div> 
-                        <div class = "col-sm-11">
-                            <input type = "text" class = "form-control" placeholder = "Ime" disabled = {OsnivanjeStore.kreirano}
-                                value = {OsnivanjeStore.ime}
-                                onChange = {(e) => {
-                                    this.setState({imeError:null})
-                                    OsnivanjeStore.ime = e.target.value}}/>
-                            <div className="validation-msg">{this.state.imeError}</div>
+                        <div className="osnivanje-tima-inputs">
+                            <div className="input-whole">
+                                <label>Ime:</label>
+                                <div className="input-field">
+                                    <input type = "text" className = "form-control" placeholder = "Ime" disabled = {OsnivanjeStore.kreirano}
+                                        value = {OsnivanjeStore.ime}
+                                        onChange = {(e) => {
+                                            this.setState({imeError:null})
+                                            OsnivanjeStore.ime = e.target.value}}/>
+                                    <div className="validation-msg">{this.state.imeError}</div>
+                                </div>
+                            </div>
+                            
+                            <div className="input-whole">
+                                <label>Sport:</label>
+                                <div className="input-field">
+                                    <Select options = {sportOpcije} classNameName="react-select" isDisabled = {OsnivanjeStore.kreirano}
+                                        value = {OsnivanjeStore.sport!==0?{value: OsnivanjeStore.sport,
+                                                                            label: sportovi.find(s=>s.id===OsnivanjeStore.sport).naziv}:null}
+                                        onChange = {(e) => {OsnivanjeStore.sport = e.value
+                                                            this.setState({sportError:null})
+                                                            }}/>
+                                    <div className="validation-msg">{this.state.sportError}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class = "row">
-                        <div class = "col-sm-1">Sport:</div> 
-                        <div class = "col-sm-11">
-                            <Select options = {sportOpcije} className="react-select" isDisabled = {OsnivanjeStore.kreirano} 
-                                value = {OsnivanjeStore.sport!==0?{value: OsnivanjeStore.sport, 
-                                                                    label: sportovi.find(s=>s.id===OsnivanjeStore.sport).naziv}:null}
-                                onChange = {(e) => {OsnivanjeStore.sport = e.value
-                                                    this.setState({sportError:null})
-                                                    }}/>
-                            <div className="validation-msg">{this.state.sportError}</div>
-                        </div>
-                    </div>
-                    <div class = "row">
-                        <div class = "col">
-                            <button 
-                                style = {{width:'100%'}}
-                                class = "btn btn-outline-success"
-                                onClick = {() => {
-                                    resetOsnivanjeStore()
-                                    this.setState({imeError:null, sportError:null, slikaError:null})
-                                }}
-                                >Osnuj drugi tim</button>
-                        </div>
-                        <div class = "col">
-                            <button type = "button" 
-                                style = {{width:'100%'}}
-                                class = "btn btn-success"  
-                                disabled={OsnivanjeStore.kreirano}
-                                onClick = {()=>this.kreirajTim()}
-                                >
-                                    Osnuj
-                            </button>
-                        </div>
-                        <br/>
-                    </div>
-                    <ClanoviTima/>
-                </div>
+                
+                <button 
+                    style = {{width:'100%'}}
+                    class = "btn btn-outline-success"
+                    onClick = {() => {
+                        resetOsnivanjeStore()
+                        this.setState({imeError:null, sportError:null, slikaError:null})
+                    }}
+                    >Osnuj drugi tim</button>
+                
+                <button type = "button" 
+                    style = {{width:'100%'}}
+                    class = "btn btn-success"  
+                    disabled={OsnivanjeStore.kreirano}
+                    onClick = {()=>this.kreirajTim()}
+                    >
+                        Osnuj
+                </button>
+                <br/>
+                <ClanoviTima/>
             </div>
         )
     }

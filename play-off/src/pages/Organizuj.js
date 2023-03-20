@@ -79,7 +79,7 @@ class Organizuj extends Component {
                 tim2: OrganizujStore.tim2
             }
             await mecSTimovimaSchema.validate(val, {abortEarly:false})
-            let res = await ZahtjevService.posaljiZahtjevZaMec(zahtjev)    
+            await ZahtjevService.posaljiZahtjevZaMec(zahtjev)    
             OrganizujStore.kreirano = true
         } catch (error) {
             if (error.name === "ValidationError") {
@@ -123,20 +123,21 @@ class Organizuj extends Component {
                                     this.setState({datumError:null})
                                     OrganizujStore.datum = date}}
                             />
-                            <div className="validation-msg">{this.state.rodjendanError}</div>
+                            <div className="validation-msg">{this.state.datumError}</div>
                         </MuiPickersUtilsProvider>
                     </div>
-                    <div className="validation-msg">{this.state.datumError}</div>
                 </div>
                 
                 <div className = "input-whole">
                     <label>Vrijeme:</label>
-                    <input type = "time" class = "form-control" disabled = {OrganizujStore.kreirano}
-                        value = {OrganizujStore.vrijeme}
-                        onChange = {(e) => {OrganizujStore.vrijeme = e.target.value
-                                            this.setState({vrijemeError:null})
-                                        }}/>
-                    <div className="validation-msg">{this.state.vrijemeError}</div>
+                    <div class="input-field">
+                        <input type = "time" class = "form-control" disabled = {OrganizujStore.kreirano}
+                            value = {OrganizujStore.vrijeme}
+                            onChange = {(e) => {OrganizujStore.vrijeme = e.target.value
+                                                this.setState({vrijemeError:null})
+                                            }}/>
+                        <div className="validation-msg">{this.state.vrijemeError}</div>
+                    </div>
                 </div>
                 
                 <div className = "input-whole">
@@ -149,8 +150,8 @@ class Organizuj extends Component {
                                 OrganizujStore.sport = e.value
                                 this.setState({sportError:null})
                                 }}/>
+                        <div className="validation-msg">{this.state.sportError}</div>
                     </div>
-                    <div className="validation-msg">{this.state.sportError}</div>
                 </div>
 
                 <div className = "input-whole">
@@ -160,20 +161,16 @@ class Organizuj extends Component {
                             value = {OrganizujStore.tip}
                             onChange = {(e) => {
                                 OrganizujStore.tip = e
-                                if (e.value === 2)
-                                    this.setState({biranjeTimova:true, tipError:null})
-                                else
-                                    this.setState({biranjeTimova:false, tipError:null})
+                                this.setState({biranjeTimova: e.value===2, tipError:null})
                                 }}/>
+                        <div className="validation-msg">{this.state.tipError}</div>
                     </div>
-                    <div className="validation-msg">{this.state.tipError}</div>
                 </div>
 
                 <Collapse in = {this.state.biranjeTimova}>
                     <div class = "container-fluid">
                         Timovi:
                         <br/>
-                        
                             <div class = "col">
                                 <BiranjeTima tim = {1} disabled = {OrganizujStore.kreirano} onChange = {() => this.setState({tim1Error:null})}/>
                                 <div className="validation-msg">{this.state.tim1Error}</div>

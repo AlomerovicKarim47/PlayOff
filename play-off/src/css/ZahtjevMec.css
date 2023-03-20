@@ -1,0 +1,76 @@
+.zahtjev-mec-card{
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    gap:1rem;
+    padding:0 0.6rem;
+}
+
+.zahtjev-mec-informacije{
+    flex:4 1 100%;
+}
+
+.zahtjev-mec-odgovor{
+    flex: 1 4 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.zahtjev-mec-odgovor button{
+    width: 100%;
+    white-space: nowrap;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.zahtjev-mec-slika{
+   width: 100%;
+   display: flex;
+   flex-flow: column nowrap;
+   align-items: center;
+   justify-content: center;
+}
+
+.zahtjev-mec-slika img{
+    width: 150px;
+    height: 150px;
+    object-fit:fill;
+}
+
+.zahtjev-mec-timovi{
+    flex: 4 1 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    gap:1rem;
+}
+
+@media (max-width: 820px){
+    .zahtjev-mec-card{
+        flex-flow: column nowrap;
+    }
+    .odgovor-mec-btn-wrapper{
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 0.3rem;
+        justify-content: center;
+    }
+    .odgovor-mec-wrapper{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+    }
+    .zahtjev-mec-slika{
+        width: auto;
+    }
+    .zahtjev-mec-timovi .zahtjev-mec-slika:last-child{
+        order: -1;
+    }
+    .zahtjev-mec-timovi{
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+}

@@ -8,21 +8,21 @@ export default class SearchResults extends Component {
         let korisnici = "/home/search/korisnici"
         let meceviBezTimova = "/home/search/meceviBezTimova"
         return (
-            <div class = "container-fluid no-padding">
-                <div class = "row">
-                    <div class="col-sm-2">
+            <div className = "page-whole">
+                
+                    <div class="sidebar-wrapper">
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <Link class="nav-link text-dark" to = {korisnici}>Korisnici</Link>
+                                    <Link class="sidebar-link" to = {korisnici}>Korisnici</Link>
                                 </li>
                                 <li class="nav-item">
-                                    <Link class="nav-link text-dark" to = {meceviBezTimova}>Mečevi bez timova</Link>
+                                    <Link class="sidebar-link" to = {meceviBezTimova}>Mečevi bez timova</Link>
                                 </li>
                             </ul>                 
                         </nav>
                     </div>
-                    <div class="col-sm-10">
+                    <div class="content-wrapper">
                         <Switch>
                             <Route path = {korisnici}>
                                 <SearchKorisnici query = {this.props.query} refresh = {this.props.refresh} resetRefresh = {() => this.props.resetRefresh()}/>
@@ -32,7 +32,7 @@ export default class SearchResults extends Component {
                             </Route>
                         </Switch>
                     </div>
-                </div>
+                
             </div>
         )
     }

@@ -1,0 +1,20 @@
+.historija-container-timovi{
+    width:100%;
+    display: flex;
+}
+
+.historija-info{
+    flex: 3 1 100%;
+    text-align: center;
+}
+
+.historija-slika{
+    flex: 1 3 100%;
+    min-width: 100px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+.historija-item{
+    text-align: center;
+}

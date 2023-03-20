@@ -14,27 +14,26 @@ export default class Zahtjevi extends Component {
         return (
             
             <div>
-                <div class = "container-fluid no-padding">
-                    <div class = "row">
-                        <div class="col-sm-2">
+                <div class = "page-whole">
+                        <div class="sidebar-wrapper">
                             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <Link class="nav-link text-dark" to = {`${bezTimova}`} >Zahtjevi za meč bez timova</Link>
+                                        <Link className="sidebar-link" to = {`${bezTimova}`} >Meč bez timova</Link>
                                     </li>
                                     <li class="nav-item">
-                                        <Link class="nav-link text-dark" to = {`${zahtjeviZaMec}`} >Zahtjevi za meč s timovima</Link>
+                                        <Link className="sidebar-link" to = {`${zahtjeviZaMec}`} >Meč s timovima</Link>
                                     </li>
                                     <li class="nav-item">
-                                        <Link class="nav-link text-dark" to = {`${zahtjeviZaTim}`} >Zahtjevi za tim</Link>
+                                        <Link className="sidebar-link" to = {`${zahtjeviZaTim}`} >Tim</Link>
                                     </li>
                                     <li class="nav-item">
-                                        <Link class="nav-link text-dark" to = {`${zahtjeviZaPridruzivanje}`} >Zahtjevi za pridruzivanje</Link>
+                                        <Link className="sidebar-link" to = {`${zahtjeviZaPridruzivanje}`} >Pridruživanje</Link>
                                     </li>
                                 </ul>                 
                             </nav>
                         </div>
-                        <div class="col-sm-10">
+                        <div class="content-wrapper">
                             <Switch>
                                 <Route path = {bezTimova} component = {ZahtjeviZaMecBezTimova}/>
                                 <Route path = {zahtjeviZaTim} component = {ZahtjeviZaTim}/>
@@ -42,7 +41,6 @@ export default class Zahtjevi extends Component {
                                 <Route path = {zahtjeviZaPridruzivanje} component = {ZahtjeviZaPridruzivanje}/>
                             </Switch>
                         </div>
-                    </div>
                 </div>
             </div>
         )

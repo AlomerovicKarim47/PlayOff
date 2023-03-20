@@ -9,11 +9,12 @@ import SearchResults from './SearchResults'
 import {observer} from 'mobx-react'
 import UserStore from '../stores/UserStore'
 import {Dropdown} from 'react-bootstrap'
+import Toolbar from '../components/Toolbar'
 
-import '../css/HomePage.css'
+import '../css/Homepage.css'
 
 class HomePage extends Component {
-    
+
     state = {
         query : "",
         refresh: false
@@ -42,74 +43,8 @@ class HomePage extends Component {
         let search = '/home/search'
         return (
             <div>
-                <div className = "toolbar-nav">
-                    <div className = "logo">
-                        ⚽PLAY OFF🏀
-                    </div>
-                    <div className="navigation">
-                        <ul>
-                            <li>
-                                <NavLink activeClassName='navigation-active' to = {organizacija+"/organizuj"}>Organizacija</NavLink>
-                            </li>
-                            <li>
-                                <NavLink activeClassName='navigation-active' to = {timovi+"/mojiTimovi"}>Timovi</NavLink>
-                            </li>
-                            <li>
-                                <NavLink activeClassName='navigation-active' to = {zahtjevi+"/mecBezTimova"}>Zahtjevi</NavLink>
-                            </li>
-                        </ul>
-                    </div>                            
-                    
-                    <div className = "search-bar">
-                        <input type = "text" className = "form-control" placeholder="Traži korisnike ili termine..." onChange = {(e) => this.setState({query:e.target.value})}/>
-                        <button className="btn btn-success" type="button" onClick = {() => this.search()}>Traži</button>
-                    </div>
-                    
-                    <div className = "dropdown-whole">
-                        <Dropdown>
-                            <Dropdown.Toggle variant="link" id="dropdown-basic" style = {{color:'white', textDecoration:'none'}}>
-                                {UserStore.user.username}
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item>
-                                    <Link to = {`${profil}/${UserStore.user.id}`} style = {{textDecoration:'none', color:'black'}}>Moj Profil</Link>
-                                </Dropdown.Item>
-                                <Dropdown.Item onClick={()=>this.logOut()}>
-                                    Odjava
-                                </Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </div>
-
-                    <button class = "hamburger-btn" onClick={() => {
-                        let nav = document.getElementsByClassName("navigation-alt")[0]
-                        nav.style.display = (nav.style.display === "none")?"flex":"none"
-                    
-                    }}>
-                        <div class = "hamburger"></div>
-                    </button>    
-                </div>  
-
-                <div className="navigation-alt" onClick = {(e) => e.currentTarget.style.display = "none"}>
-                        <ul>
-                            <li>
-                                <Link to = {organizacija+"/organizuj"}>Organizacija</Link>
-                            </li>
-                            <li>
-                                <Link to = {timovi+"/mojiTimovi"}>Timovi</Link>
-                            </li>
-                            <li>
-                                <Link to = {zahtjevi+"/mecBezTimova"}>Zahtjevi</Link>
-                            </li>
-                            <li>
-                                <Link to = {`${profil}/${UserStore.user.id}`}>Moj Profil</Link>
-                            </li>
-                            <li>
-                                <Link to = "" onClick={() => this.logOut()}>Odjava</Link>
-                            </li>
-                        </ul>
-                    </div>
+                
+                <Toolbar search = {this.search} logOut = {this.logOut} onChangeSearch = {(value) => this.setState({query:value})}/>
 
                 <Switch>
                     <Route path = {organizacija} component = {Organizacija}/>

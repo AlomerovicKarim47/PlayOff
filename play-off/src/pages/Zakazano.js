@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import MecService from '../services/MecService'
 import UserStore from '../stores/UserStore'
-import sportovi from '../config/sportovi'
 import {observer} from 'mobx-react'
-import moment from 'moment'
+import ZakazaniDogadjaj from '../components/ZakazaniDogadjaj'
 
 class Zakazano extends Component {
     state = {
@@ -24,38 +23,9 @@ class Zakazano extends Component {
     render() {
         return (
             <div>
-                {this.state.meceviBezTimova.map(m=>{
-                    if (m.sport !== 0)
-                    if (m.tip === 2)
-                    return(<div class = {m.tip===1?"card bg-light":"card" }
-                                style = {{margin:'5px', cursor:'pointer', background:"#ccffcc"}}>
-                                <div class = "row">
-                                <div class = "col-md-auto">
-                                    <img src={`data:${"image/png"};base64,${Buffer.from(m.prviTim.slika.data).toString('base64')}`} 
-                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
-                                </div>
-                                <div class = "col" style = {{textAlign:'center'}}>
-                                    {m.prviTim.ime + " - " + m.drugiTim.ime}<br/>
-                                    {m.zavrsen?m.rezTim1 + " - " + m.rezTim2:null}<br hidden = {m.zavrsen!==true}/>
-                                    {sportovi.find(s => s.id === m.sport).naziv}<br/>
-                                    {m.vrijemeOdrzavanja}<br/>
-                                    {m.mjesto}
-                                </div>
-                                <div class = "col-md-auto">
-                                    <img src={`data:${"image/png"};base64,${Buffer.from(m.drugiTim.slika.data).toString('base64')}`} 
-                                                class="rounded mx-auto d-block img-thumbnail" style = {{width:'100px', height:'100px', float:'left'}}/>      
-                                </div>
-                                </div>
-
-                        </div>)
-                    else if (m.tip === 1)
-                    return(<div class = {m.tip===1?"card bg-light":"card" }
-                                style = {{margin:'5px', cursor:'pointer', background:"#ccffcc", textAlign:'center'}}>
-                                    {sportovi.find(s => s.id === m.sport).naziv}<br/>
-                                    {m.vrijemeOdrzavanja}<br/>
-                                    {m.mjesto}
-                        </div>)
-                })}
+                {this.state.meceviBezTimova.map(m=>
+                    <ZakazaniDogadjaj key = {m.id} data = {m}/>
+                )}
             </div>
         )
     }

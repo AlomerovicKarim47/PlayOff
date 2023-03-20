@@ -1,0 +1,36 @@
+/*OSNIVANJE TIMA*/
+.slika-input-whole{
+    
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    position: relative;
+}
+
+.osnivanje-tima-container{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.osnivanje-tima-inputs{
+    align-self: stretch;
+}
+
+/* .slika-input-whole input{
+    
+    flex:1;
+    opacity: 50%;
+    position: absolute;
+    bottom: 0px;
+}
+
+.image-container{
+    height:300px;
+    width: 300px;
+}
+
+.slika-input{
+    width:100%;
+    height:300px;
+} */

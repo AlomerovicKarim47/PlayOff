@@ -1,0 +1,43 @@
+.zahtjev-card{
+    display: flex;
+    flex-flow: row nowrap;
+    padding:0.6rem;
+}
+
+.zahtjev-informacije{
+    flex:4 1 100%;
+}
+
+.zahtjev-odgovor{
+    flex: 1 4 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.zahtjev-odgovor button{
+    width: 100%;
+    white-space: nowrap;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px){
+    .zahtjev-card{
+        flex-flow: column nowrap;
+    }
+    .odgovor-btn-wrapper{
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 0.3rem;
+        justify-content: center;
+    }
+    .odgovor-wrapper{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+    }
+}
