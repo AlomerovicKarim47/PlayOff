@@ -10,7 +10,7 @@ import {observer} from 'mobx-react'
 import UserStore from '../stores/UserStore'
 import Toolbar from '../components/Toolbar'
 
-import '../css/Homepage.css'
+import '../css/HomePage.css'
 
 class HomePage extends Component {
 
